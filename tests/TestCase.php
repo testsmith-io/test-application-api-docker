@@ -1,9 +1,12 @@
 <?php
 
+use Illuminate\Contracts\Console\Kernel;
 use Laravel\Lumen\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+
+    use \Laravel\Lumen\Testing\DatabaseMigrations;
     /**
      * Creates the application.
      *

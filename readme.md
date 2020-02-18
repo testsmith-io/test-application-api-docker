@@ -25,7 +25,13 @@ Frontend
 
 
 # Generate Swagger documentation
-php artisan l5-swagger:generate
+`php artisan swagger-lume:generate`
+
+# Run unittests
+`./vendor/bin/phpunit`
+
+# Start project locally
+`php -S localhost:8000 -t public`
 
 # How to use this project
 
@@ -51,5 +57,4 @@ Use the following command line options:
 Username `root` and password `root`
 
 ## application
-`http://localhost:8091
-`
+`http://localhost:8091`

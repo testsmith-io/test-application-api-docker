@@ -1,0 +1,2258 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Chinook API",
+        "contact": {
+            "name": "Testsmith",
+            "email": "info@testsmith.io"
+        },
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api",
+            "description": "Local environment"
+        }
+    ],
+    "paths": {
+        "/albums": {
+            "get": {
+                "tags": [
+                    "Album"
+                ],
+                "summary": "Retrieve all albums",
+                "operationId": "get-all-albums",
+                "responses": {
+                    "200": {
+                        "description": "All albums",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AlbumResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Album"
+                ],
+                "summary": "New album",
+                "operationId": "store-album",
+                "requestBody": {
+                    "description": "Album object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AlbumRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Album",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AlbumResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/albums/{albumId}": {
+            "get": {
+                "tags": [
+                    "Album"
+                ],
+                "summary": "Retrieve a specific album",
+                "operationId": "get-album",
+                "parameters": [
+                    {
+                        "name": "albumId",
+                        "in": "path",
+                        "description": "The albumId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An Album",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AlbumResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Album"
+                ],
+                "summary": "Update album",
+                "operationId": "update-album",
+                "parameters": [
+                    {
+                        "name": "albumId",
+                        "in": "path",
+                        "description": "The albumId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Album object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AlbumRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Album",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AlbumResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Album"
+                ],
+                "summary": "Remove album",
+                "operationId": "destroy-album",
+                "parameters": [
+                    {
+                        "name": "albumId",
+                        "in": "path",
+                        "description": "The albumId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/artists": {
+            "get": {
+                "tags": [
+                    "Artist"
+                ],
+                "summary": "Retrieve all artists",
+                "operationId": "get-all-artists",
+                "responses": {
+                    "200": {
+                        "description": "All artists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ArtistResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Artist"
+                ],
+                "summary": "New artist",
+                "operationId": "store-artist",
+                "requestBody": {
+                    "description": "Album object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArtistRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Album",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ArtistResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/artists/{artistId}": {
+            "get": {
+                "tags": [
+                    "Artist"
+                ],
+                "summary": "Retrieve a specific artist",
+                "operationId": "get-artist",
+                "parameters": [
+                    {
+                        "name": "artistId",
+                        "in": "path",
+                        "description": "The artistId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An Artist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ArtistResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Artist"
+                ],
+                "summary": "Update artist",
+                "operationId": "update-artist",
+                "parameters": [
+                    {
+                        "name": "artistId",
+                        "in": "path",
+                        "description": "The artistId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Artist object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ArtistRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Artist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ArtistResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Artist"
+                ],
+                "summary": "Remove artist",
+                "operationId": "destroy-artist",
+                "parameters": [
+                    {
+                        "name": "artistId",
+                        "in": "path",
+                        "description": "The artistId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/customers": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Retrieve all customers",
+                "operationId": "get-all-customers",
+                "responses": {
+                    "200": {
+                        "description": "All customers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CustomerResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "New customer",
+                "operationId": "store-customer",
+                "requestBody": {
+                    "description": "Customer object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CustomerRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A customer",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/customers/{customerId}": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Retrieve a specific customer",
+                "operationId": "get-customer",
+                "parameters": [
+                    {
+                        "name": "customerId",
+                        "in": "path",
+                        "description": "The customerId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A customer",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Update customer",
+                "operationId": "update-customer",
+                "parameters": [
+                    {
+                        "name": "customerId",
+                        "in": "path",
+                        "description": "The customerId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Customer object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CustomerRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A customer",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CustomerResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Remove customer",
+                "operationId": "destroy-customer",
+                "parameters": [
+                    {
+                        "name": "customerId",
+                        "in": "path",
+                        "description": "The customerId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/employees": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Retrieve all employees",
+                "operationId": "get-all-employees",
+                "responses": {
+                    "200": {
+                        "description": "All employees",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/EmployeeResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "New employee",
+                "operationId": "store-employee",
+                "requestBody": {
+                    "description": "Employee object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmployeeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Employee",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmployeeResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employees/{employeeId}": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Retrieve a specific employee",
+                "operationId": "get-employee",
+                "parameters": [
+                    {
+                        "name": "employeeId",
+                        "in": "path",
+                        "description": "The employeeId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An Employee",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmployeeResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Update employee",
+                "operationId": "update-employee",
+                "parameters": [
+                    {
+                        "name": "employeeId",
+                        "in": "path",
+                        "description": "The employeeId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Employee object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EmployeeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Employee",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/EmployeeResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Remove employee",
+                "operationId": "destroy-employee",
+                "parameters": [
+                    {
+                        "name": "employeeId",
+                        "in": "path",
+                        "description": "The employeeId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/genres": {
+            "get": {
+                "tags": [
+                    "Genre"
+                ],
+                "summary": "Retrieve all genres",
+                "operationId": "get-all-genres",
+                "responses": {
+                    "200": {
+                        "description": "All genre",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GenreResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Genre"
+                ],
+                "summary": "New genre",
+                "operationId": "store-genre",
+                "requestBody": {
+                    "description": "Genre object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GenreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Genre",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GenreResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/genres/{genreId}": {
+            "get": {
+                "tags": [
+                    "Genre"
+                ],
+                "summary": "Retrieve a specific genre",
+                "operationId": "get-genre",
+                "parameters": [
+                    {
+                        "name": "genreId",
+                        "in": "path",
+                        "description": "The genreId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An Genre",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GenreResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Genre"
+                ],
+                "summary": "Update genre",
+                "operationId": "update-genre",
+                "parameters": [
+                    {
+                        "name": "genreId",
+                        "in": "path",
+                        "description": "The genreId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Genre object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/GenreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Genre",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GenreResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Genre"
+                ],
+                "summary": "Remove genre",
+                "operationId": "destroy-genre",
+                "parameters": [
+                    {
+                        "name": "genreId",
+                        "in": "path",
+                        "description": "The genreId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/invoices": {
+            "get": {
+                "tags": [
+                    "Invoice"
+                ],
+                "summary": "Retrieve all invoices",
+                "operationId": "get-all-invoices",
+                "responses": {
+                    "200": {
+                        "description": "All invoices",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/InvoiceResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Invoice"
+                ],
+                "summary": "New invoice",
+                "operationId": "store-invoice",
+                "requestBody": {
+                    "description": "Invoice object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InvoiceRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Invoice",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InvoiceResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/invoices/{invoiceId}": {
+            "get": {
+                "tags": [
+                    "Invoice"
+                ],
+                "summary": "Retrieve a specific invoice",
+                "operationId": "get-invoice",
+                "parameters": [
+                    {
+                        "name": "invoiceId",
+                        "in": "path",
+                        "description": "The invoiceId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An Invoice",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InvoiceResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Invoice"
+                ],
+                "summary": "Update invoice",
+                "operationId": "update-invoice",
+                "parameters": [
+                    {
+                        "name": "invoiceId",
+                        "in": "path",
+                        "description": "The invoiceId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Invoice object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InvoiceRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Invoice",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/InvoiceResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Invoice"
+                ],
+                "summary": "Remove invoice",
+                "operationId": "destroy-invoice",
+                "parameters": [
+                    {
+                        "name": "invoiceId",
+                        "in": "path",
+                        "description": "The invoiceId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/invoicelines": {
+            "get": {
+                "tags": [
+                    "Invoiceline"
+                ],
+                "summary": "Retrieve all invoicelines",
+                "operationId": "get-all-invoicelines",
+                "responses": {
+                    "200": {
+                        "description": "All invoiceline",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/InvoicelineResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Invoiceline"
+                ],
+                "summary": "New invoicelines",
+                "operationId": "store-invoiceline",
+                "requestBody": {
+                    "description": "Invoiceline object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InvoicelineRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Album",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InvoicelineResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/invoicelines/{invoicelineId}": {
+            "get": {
+                "tags": [
+                    "Invoiceline"
+                ],
+                "summary": "Retrieve a specific invoiceline",
+                "operationId": "get-invoiceline",
+                "parameters": [
+                    {
+                        "name": "invoicelineId",
+                        "in": "path",
+                        "description": "The invoicelineId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An invoiceline",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InvoicelineResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Invoiceline"
+                ],
+                "summary": "Update invoiceline",
+                "operationId": "update-invoiceline",
+                "parameters": [
+                    {
+                        "name": "invoicelineId",
+                        "in": "path",
+                        "description": "The invoicelineId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Invoiceline object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InvoicelineRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An invoiceline",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/InvoicelineResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Invoiceline"
+                ],
+                "summary": "Remove invoiceline",
+                "operationId": "destroy-invoiceline",
+                "parameters": [
+                    {
+                        "name": "invoicelineId",
+                        "in": "path",
+                        "description": "The invoicelineId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/mediatypes": {
+            "get": {
+                "tags": [
+                    "Mediatype"
+                ],
+                "summary": "Retrieve all mediatypes",
+                "operationId": "get-all-mediatypes",
+                "responses": {
+                    "200": {
+                        "description": "All mediatypes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MediatypeResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Mediatype"
+                ],
+                "summary": "New mediatype",
+                "operationId": "store-mediatype",
+                "requestBody": {
+                    "description": "Mediatype object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MediatypeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Album",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MediatypeResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/mediatypes/{mediatypeId}": {
+            "get": {
+                "tags": [
+                    "Mediatype"
+                ],
+                "summary": "Retrieve a specific mediatype",
+                "operationId": "get-mediatype",
+                "parameters": [
+                    {
+                        "name": "mediatypeId",
+                        "in": "path",
+                        "description": "The mediatypeId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An Mediatype",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MediatypeResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Mediatype"
+                ],
+                "summary": "Update mediatype",
+                "operationId": "update-mediatype",
+                "parameters": [
+                    {
+                        "name": "mediatypeId",
+                        "in": "path",
+                        "description": "The mediatypeId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Mediatype object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MediatypeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Mediatype",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MediatypeResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Mediatype"
+                ],
+                "summary": "Remove mediatype",
+                "operationId": "destroy-mediatype",
+                "parameters": [
+                    {
+                        "name": "mediatypeId",
+                        "in": "path",
+                        "description": "The mediatypeId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/playlists": {
+            "get": {
+                "tags": [
+                    "Playlist"
+                ],
+                "summary": "Retrieve all playlists",
+                "operationId": "get-all-playlists",
+                "responses": {
+                    "200": {
+                        "description": "All playlists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlaylistResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Playlist"
+                ],
+                "summary": "New playlist",
+                "operationId": "store-playlist",
+                "requestBody": {
+                    "description": "Playlist object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlaylistRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Playlist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlaylistResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/playlists/{playlistId}": {
+            "get": {
+                "tags": [
+                    "Playlist"
+                ],
+                "summary": "Retrieve a specific playlist",
+                "operationId": "get-playlist",
+                "parameters": [
+                    {
+                        "name": "playlistId",
+                        "in": "path",
+                        "description": "The playlistId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An Playlist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PlaylistResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Playlist"
+                ],
+                "summary": "Update playlist",
+                "operationId": "update-playlist",
+                "parameters": [
+                    {
+                        "name": "playlistId",
+                        "in": "path",
+                        "description": "The playlistId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Playlist object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/PlaylistRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "An Playlist",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlaylistResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Playlist"
+                ],
+                "summary": "Remove playlist",
+                "operationId": "destroy-playlist",
+                "parameters": [
+                    {
+                        "name": "playlistId",
+                        "in": "path",
+                        "description": "The playlistId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/tracks": {
+            "get": {
+                "tags": [
+                    "Track"
+                ],
+                "summary": "Retrieve all tracks",
+                "operationId": "get-all-tracks",
+                "responses": {
+                    "200": {
+                        "description": "All tracks",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TrackResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Track"
+                ],
+                "summary": "New track",
+                "operationId": "store-track",
+                "requestBody": {
+                    "description": "Track object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TrackRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A track",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrackResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tracks/{trackId}": {
+            "get": {
+                "tags": [
+                    "Track"
+                ],
+                "summary": "Retrieve a specific track",
+                "operationId": "get-track",
+                "parameters": [
+                    {
+                        "name": "trackId",
+                        "in": "path",
+                        "description": "The trackId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A track",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TrackResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Track"
+                ],
+                "summary": "Update track",
+                "operationId": "update-track",
+                "parameters": [
+                    {
+                        "name": "trackId",
+                        "in": "path",
+                        "description": "The trackId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Track object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TrackRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A track",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TrackResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Track"
+                ],
+                "summary": "Remove track",
+                "operationId": "destroy-track",
+                "parameters": [
+                    {
+                        "name": "trackId",
+                        "in": "path",
+                        "description": "The trackId parameter in path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AlbumRequest": {
+                "title": "AlbumRequest",
+                "required": [
+                    "title",
+                    "artist_id"
+                ],
+                "properties": {
+                    "title": {
+                        "description": "Class Album",
+                        "type": "string"
+                    },
+                    "artist_id": {
+                        "description": "Class Album",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "AlbumResponse": {
+                "title": "AlbumResponse",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "artist_id": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "artist": {
+                        "$ref": "#/components/schemas/ArtistResponse"
+                    }
+                },
+                "type": "object"
+            },
+            "ArtistRequest": {
+                "title": "ArtistRequest",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Class Artist",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ArtistResponse": {
+                "title": "ArtistResponse",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "artist": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AlbumResponse"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CustomerRequest": {
+                "title": "CustomerRequest",
+                "required": [
+                    "firstname",
+                    "lastname",
+                    "address",
+                    "city",
+                    "country",
+                    "email"
+                ],
+                "properties": {
+                    "firstname": {
+                        "description": "Class Customer",
+                        "type": "string"
+                    },
+                    "lastname": {
+                        "description": "Class Customer",
+                        "type": "integer"
+                    },
+                    "company": {
+                        "description": "Class Customer",
+                        "type": "string"
+                    },
+                    "address": {
+                        "description": "Class Customer",
+                        "type": "string"
+                    },
+                    "city": {
+                        "description": "Class Customer",
+                        "type": "integer"
+                    },
+                    "state": {
+                        "description": "Class Customer",
+                        "type": "string"
+                    },
+                    "country": {
+                        "description": "Class Customer",
+                        "type": "string"
+                    },
+                    "postalcode": {
+                        "description": "Class Customer",
+                        "type": "integer"
+                    },
+                    "phone": {
+                        "description": "Class Customer",
+                        "type": "string"
+                    },
+                    "fax": {
+                        "description": "Class Customer",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "Class Customer",
+                        "type": "integer"
+                    },
+                    "support_rep_id": {
+                        "description": "Class Customer",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "CustomerResponse": {
+                "title": "CustomerResponse",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "firstname": {
+                        "type": "string"
+                    },
+                    "lastname": {
+                        "type": "integer"
+                    },
+                    "company": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "integer"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
+                    },
+                    "postalcode": {
+                        "type": "integer"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "fax": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "integer"
+                    },
+                    "support_rep_id": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "support_rep": {
+                        "$ref": "#/components/schemas/EmployeeResponse"
+                    }
+                },
+                "type": "object"
+            },
+            "EmployeeRequest": {
+                "title": "EmployeeRequest",
+                "required": [
+                    "title",
+                    "body"
+                ],
+                "properties": {
+                    "lastname": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "firstname": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "title": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "reports_to": {
+                        "$ref": "integer"
+                    },
+                    "birthdate": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "hiredate": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "address": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "city": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "state": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "country": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "postalcode": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "fax": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "EmployeeResponse": {
+                "title": "EmployeeResponse",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "lastname": {
+                        "type": "string"
+                    },
+                    "firstname": {
+                        "type": "string"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "reports_to": {
+                        "$ref": "#/components/schemas/EmployeeResponse"
+                    },
+                    "birthdate": {
+                        "type": "string"
+                    },
+                    "hiredate": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "country": {
+                        "type": "string"
+                    },
+                    "postalcode": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "fax": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "customers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CustomerResponse"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "GenreRequest": {
+                "title": "GenreRequest",
+                "required": [
+                    "title",
+                    "body"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Class Genre",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "GenreResponse": {
+                "title": "GenreResponse",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "InvoiceRequest": {
+                "title": "InvoiceRequest",
+                "required": [
+                    "title",
+                    "body"
+                ],
+                "properties": {
+                    "customer_id": {
+                        "description": "Class Invoice",
+                        "type": "integer"
+                    },
+                    "invoice_date": {
+                        "description": "Class Invoice",
+                        "type": "string"
+                    },
+                    "billing_address": {
+                        "description": "Class Invoice",
+                        "type": "string"
+                    },
+                    "billing_city": {
+                        "description": "Class Invoice",
+                        "type": "string"
+                    },
+                    "billing_state": {
+                        "description": "Class Invoice",
+                        "type": "string"
+                    },
+                    "billing_country": {
+                        "description": "Class Invoice",
+                        "type": "string"
+                    },
+                    "billing_postalcode": {
+                        "description": "Class Invoice",
+                        "type": "string"
+                    },
+                    "total": {
+                        "description": "Class Invoice",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "InvoiceResponse": {
+                "title": "InvoiceResponse",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "customer_id": {
+                        "type": "integer"
+                    },
+                    "invoice_date": {
+                        "type": "string"
+                    },
+                    "billing_address": {
+                        "type": "string"
+                    },
+                    "billing_city": {
+                        "type": "string"
+                    },
+                    "billing_state": {
+                        "type": "string"
+                    },
+                    "billing_country": {
+                        "type": "string"
+                    },
+                    "billing_postalcode": {
+                        "type": "string"
+                    },
+                    "total": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    },
+                    "artist": {
+                        "$ref": "#/components/schemas/ArtistResponse"
+                    }
+                },
+                "type": "object"
+            },
+            "InvoicelineRequest": {
+                "title": "InvoicelineRequest",
+                "required": [
+                    "title",
+                    "body"
+                ],
+                "properties": {
+                    "invoice_id": {
+                        "description": "Class Invoiceline",
+                        "type": "integer"
+                    },
+                    "track_id": {
+                        "description": "Class Invoiceline",
+                        "type": "integer"
+                    },
+                    "unit_price": {
+                        "description": "Class Invoiceline",
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "description": "Class Invoiceline",
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "description": "Class Invoiceline",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "InvoicelineResponse": {
+                "title": "InvoicelineResponse",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "invoice_id": {
+                        "type": "integer"
+                    },
+                    "track_id": {
+                        "type": "integer"
+                    },
+                    "unit_price": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "MediatypeRequest": {
+                "title": "MediatypeRequest",
+                "required": [
+                    "title",
+                    "body"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Class Mediatype",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "MediatypeResponse": {
+                "title": "MediatypeResponse",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "PlaylistRequest": {
+                "title": "PlaylistRequest",
+                "required": [
+                    "title",
+                    "body"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Class Playlist",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "PlaylistResponse": {
+                "title": "PlaylistResponse",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "TrackRequest": {
+                "title": "TrackRequest",
+                "required": [
+                    "title",
+                    "body"
+                ],
+                "properties": {
+                    "name": {
+                        "description": "Class Track",
+                        "type": "string"
+                    },
+                    "composer": {
+                        "description": "Class Track",
+                        "type": "string"
+                    },
+                    "album_id": {
+                        "description": "Class Track",
+                        "type": "integer"
+                    },
+                    "mediatype_id": {
+                        "description": "Class Track",
+                        "type": "integer"
+                    },
+                    "genre_id": {
+                        "description": "Class Track",
+                        "type": "integer"
+                    },
+                    "milliseconds": {
+                        "description": "Class Track",
+                        "type": "integer"
+                    },
+                    "bytes": {
+                        "description": "Class Track",
+                        "type": "integer"
+                    },
+                    "unit_price": {
+                        "description": "Class Track",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "TrackResponse": {
+                "title": "TrackResponse",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "composer": {
+                        "type": "string"
+                    },
+                    "album_id": {
+                        "type": "integer"
+                    },
+                    "mediatype_id": {
+                        "type": "integer"
+                    },
+                    "genre_id": {
+                        "type": "integer"
+                    },
+                    "milliseconds": {
+                        "type": "integer"
+                    },
+                    "bytes": {
+                        "type": "integer"
+                    },
+                    "unit_price": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
