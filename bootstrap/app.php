@@ -84,6 +84,7 @@ $app->singleton(
 $app->register(Urameshibr\Providers\FormRequestServiceProvider::class);
 $app->register(\SwaggerLume\ServiceProvider::class);
 
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

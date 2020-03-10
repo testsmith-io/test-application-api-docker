@@ -58,3 +58,18 @@ Username `root` and password `root`
 
 ## application
 `http://localhost:8091`
+
+## Swagger documentation
+/api/documentation
+
+## Routes
+/api/albums
+/api/artists
+/api/customers
+/api/employees
+/api/genres
+/api/invoices
+/api/invoicelines
+/api/mediatypes
+/api/playlists
+/api/tracks
