@@ -7,4 +7,4 @@ RUN apt-get update \
     && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install zip opcache xml gd mcrypt pdo_mysql
 
 # Copy configuration
-COPY docker/opcache.ini $PHP_INI_DIR/conf.d/
+COPY opcache.ini $PHP_INI_DIR/conf.d/
