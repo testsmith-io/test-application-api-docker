@@ -15,7 +15,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  * )
  *  * @OA\Server(
  *     description="Local environment",
- *     url="http://localhost:8091/api"
+ *     url="/api"
  * )
  */
 class Controller extends BaseController

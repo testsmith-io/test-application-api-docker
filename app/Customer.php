@@ -16,16 +16,16 @@ use Illuminate\Database\Eloquent\Model;
  *     required={"firstname", "lastname", "address", "city", "country", "email"},
  *     properties={
  *         @OA\Property(property="firstname", type="string"),
- *         @OA\Property(property="lastname", type="integer"),
+ *         @OA\Property(property="lastname", type="string"),
  *         @OA\Property(property="company", type="string"),
  *         @OA\Property(property="address", type="string"),
- *         @OA\Property(property="city", type="integer"),
+ *         @OA\Property(property="city", type="string"),
  *         @OA\Property(property="state", type="string"),
  *         @OA\Property(property="country", type="string"),
- *         @OA\Property(property="postalcode", type="integer"),
+ *         @OA\Property(property="postalcode", type="string"),
  *         @OA\Property(property="phone", type="string"),
  *         @OA\Property(property="fax", type="string"),
- *         @OA\Property(property="email", type="integer"),
+ *         @OA\Property(property="email", type="string"),
  *         @OA\Property(property="support_rep_id", type="integer")
  *     }
  * )
@@ -38,16 +38,16 @@ use Illuminate\Database\Eloquent\Model;
  *     properties={
  *         @OA\Property(property="id", type="integer"),
  *         @OA\Property(property="firstname", type="string"),
- *         @OA\Property(property="lastname", type="integer"),
+ *         @OA\Property(property="lastname", type="string"),
  *         @OA\Property(property="company", type="string"),
  *         @OA\Property(property="address", type="string"),
- *         @OA\Property(property="city", type="integer"),
+ *         @OA\Property(property="city", type="string"),
  *         @OA\Property(property="state", type="string"),
  *         @OA\Property(property="country", type="string"),
- *         @OA\Property(property="postalcode", type="integer"),
+ *         @OA\Property(property="postalcode", type="string"),
  *         @OA\Property(property="phone", type="string"),
  *         @OA\Property(property="fax", type="string"),
- *         @OA\Property(property="email", type="integer"),
+ *         @OA\Property(property="email", type="string"),
  *         @OA\Property(property="support_rep_id", type="integer"),
  *         @OA\Property(property="created_at", type="string"),
  *         @OA\Property(property="support_rep", ref="#/components/schemas/EmployeeResponse")

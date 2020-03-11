@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8091/api",
+            "url": "/api",
             "description": "Local environment"
         }
     ],
@@ -1728,7 +1728,7 @@
                     },
                     "lastname": {
                         "description": "Class Customer",
-                        "type": "integer"
+                        "type": "string"
                     },
                     "company": {
                         "description": "Class Customer",
@@ -1740,7 +1740,7 @@
                     },
                     "city": {
                         "description": "Class Customer",
-                        "type": "integer"
+                        "type": "string"
                     },
                     "state": {
                         "description": "Class Customer",
@@ -1752,7 +1752,7 @@
                     },
                     "postalcode": {
                         "description": "Class Customer",
-                        "type": "integer"
+                        "type": "string"
                     },
                     "phone": {
                         "description": "Class Customer",
@@ -1764,7 +1764,7 @@
                     },
                     "email": {
                         "description": "Class Customer",
-                        "type": "integer"
+                        "type": "string"
                     },
                     "support_rep_id": {
                         "description": "Class Customer",
@@ -1783,7 +1783,7 @@
                         "type": "string"
                     },
                     "lastname": {
-                        "type": "integer"
+                        "type": "string"
                     },
                     "company": {
                         "type": "string"
@@ -1792,7 +1792,7 @@
                         "type": "string"
                     },
                     "city": {
-                        "type": "integer"
+                        "type": "string"
                     },
                     "state": {
                         "type": "string"
@@ -1801,7 +1801,7 @@
                         "type": "string"
                     },
                     "postalcode": {
-                        "type": "integer"
+                        "type": "string"
                     },
                     "phone": {
                         "type": "string"
@@ -1810,7 +1810,7 @@
                         "type": "string"
                     },
                     "email": {
-                        "type": "integer"
+                        "type": "string"
                     },
                     "support_rep_id": {
                         "type": "integer"
