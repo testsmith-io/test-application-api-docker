@@ -29,6 +29,7 @@ $factory->define(Customer::class, function (Faker $faker) {
         'phone' => $faker->phoneNumber,
         'fax' => $faker->phoneNumber,
         'email' => $faker->email,
+        'password' => $faker->password,
         'support_rep_id' => $faker->numberBetween(0,9)
     ];
 });

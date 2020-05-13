@@ -33,6 +33,7 @@ class StoreCustomer extends BaseFormRequest
             'phone' => 'string|max:24',
             'fax' => 'string|max:24',
             'email' => 'required|string|max:60',
+            'password' => 'required|string|max:255',
             'support_rep_id' => 'numeric'
         ];
     }

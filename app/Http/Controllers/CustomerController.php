@@ -7,10 +7,22 @@ use App\Http\Requests\DestroyCustomer;
 use App\Http\Requests\StoreCustomer;
 use App\Http\Requests\UpdateCustomer;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CustomerController extends Controller
 {
+
+    /**
+     * Create a new AuthController.php instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:customer', ['except' => ['login', 'store']]);
+        $this->middleware('assign.guard:customer');
+    }
 
     /**
      * @OA\Get(
@@ -55,7 +67,163 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomer $request)
     {
-        return $this->jsonResponse(['customer' => Customer::create($request->all())], Response::HTTP_CREATED);
+        $input = $request->all();
+
+        // Hash the password
+        $input['password'] = app('hash')->make($input['password']);
+        return $this->jsonResponse(['customer' => Customer::create($input)], Response::HTTP_OK);
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/customers/login",
+     *     summary="Login customer",
+     *     operationId="login-customer",
+     *     tags={"Customer"},
+     *    	@OA\RequestBody(
+     *    		@OA\MediaType(
+     *                mediaType="application/json",
+     *    			@OA\Schema(
+     *    				 @OA\Property(property="email",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *    				 @OA\Property(property="password",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A token",
+     *    		@OA\MediaType(
+     *                mediaType="application/json",
+     *    			@OA\Schema(
+     *    				 @OA\Property(property="access_token",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *    				 @OA\Property(property="token_type",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *    				 @OA\Property(property="expires_in",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    )
+     *             )
+     *         )
+     *     )
+     * )
+     * @param Request $request
+     * @return array
+     */
+    public function login(Request $request)
+    {
+        $credentials = $request->all(['email', 'password']);
+
+        if (!$token = app('auth')->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/customers/me",
+     *     summary="Retrieve current customer info",
+     *     operationId="get-current-customer-info",
+     *     tags={"Customer"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="A customer",
+     *         @OA\JsonContent(ref="#/components/schemas/CustomerResponse"),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Error: Bad request. When required parameters were not supplied.",
+     *     ),
+     *     security={{ "apiAuth": {} }}
+     * )
+     */
+    public function me()
+    {
+        return response()->json(app('auth')->user());
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/customers/logout",
+     *     summary="Destroy token",
+     *     operationId="destroy token",
+     *     tags={"Customer"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="A token",
+     *    		@OA\MediaType(
+     *                mediaType="application/json",
+     *    			@OA\Schema(
+     *    				 @OA\Property(property="message",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *             )
+     *         )
+     *     ),
+     *     security={{ "apiAuth": {} }}
+     * )
+     */
+    public function logout()
+    {
+        app('auth')->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/customers/refresh",
+     *     summary="Refresh token",
+     *     operationId="get-new-token",
+     *     tags={"Customer"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="A token",
+     *    		@OA\MediaType(
+     *                mediaType="application/json",
+     *    			@OA\Schema(
+     *    				 @OA\Property(property="access_token",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *    				 @OA\Property(property="token_type",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *    				 @OA\Property(property="expires_in",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function refresh()
+    {
+        return $this->respondWithToken(app('auth')->refresh());
     }
 
     /**
@@ -164,4 +332,5 @@ class CustomerController extends Controller
             }
         }
     }
+
 }

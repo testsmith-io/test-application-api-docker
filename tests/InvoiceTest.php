@@ -1,5 +1,6 @@
 <?php
 
+use App\Customer;
 use App\Invoice;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -8,7 +9,10 @@ class InvoiceTest extends TestCase
 {
     public function testRequiresInvoice()
     {
-        $this->json('POST', 'api/invoices')
+        $this->refreshApplication();
+        $this->post('api/invoices', [], $this->headers(factory(Customer::class)->create([
+            'firstname' => 'Test'
+        ])))
             ->seeStatusCode(422)
             ->seeJson([
                 'billing_address' => ['The billing address field is required.'],
@@ -28,7 +32,10 @@ class InvoiceTest extends TestCase
             'billing_country' => 'new',
             'total' => 10];
 
-        $this->json('POST', 'api/invoices', $payload)
+        $this->refreshApplication();
+        $this->json('POST', 'api/invoices', $payload, $this->headers(factory(Customer::class)->create([
+            'firstname' => 'Test'
+        ])))
             ->seeStatusCode(201)
             ->seeJsonStructure([
                 'invoice' => [
@@ -39,12 +46,17 @@ class InvoiceTest extends TestCase
 
     public function testRetrieveInvoice()
     {
+        $customer = factory(Customer::class)->create([
+            'firstname' => 'Test'
+        ]);
         factory(Invoice::class)->create([
-            'billing_address' => 'Test'
+            'billing_address' => 'Test',
+            'customer_id' => $customer->id
         ]);
 
-        $this->json('GET', '/api/invoices')
-            ->seeStatusCode(200)
+        $this->refreshApplication();
+        $response = $this->get('/api/invoices', $this->headers($customer));
+        $response->seeStatusCode(200)
             ->seeJsonContains(
                 ['billing_address' => 'Test']
             )
@@ -57,7 +69,10 @@ class InvoiceTest extends TestCase
     {
         $invoice = factory(Invoice::class)->create();
 
-        $this->json('DELETE', '/api/invoices/' . $invoice->id, [], [])
+        $this->refreshApplication();
+        $this->json('DELETE', '/api/invoices/' . $invoice->id, [], $this->headers(factory(Customer::class)->create([
+            'firstname' => 'Test'
+        ])))
             ->seeStatusCode(204);
     }
 }

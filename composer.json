@@ -9,6 +9,7 @@
         "darkaonline/swagger-lume": "6.*",
         "laravel/lumen-framework": "^6.0",
         "symfony/translation": "4.3.8",
+        "tymon/jwt-auth": "1.0.0-rc.5.1",
         "urameshibr/lumen-form-request": "^1.5"
     },
     "require-dev": {

@@ -29,6 +29,7 @@ class CreateEmployeeTable extends Migration
             $table->string('phone', 24);
             $table->string('fax', 24);
             $table->string('email', 60);
+            $table->string('password')->nullable();
             $table->timestamps();
             $table->foreign('reports_to')->references('id')->on('employee');
         });

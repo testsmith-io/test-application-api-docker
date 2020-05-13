@@ -25,7 +25,8 @@ class CreateCustomerTable extends Migration
             $table->string('postalcode', 10)->nullable();
             $table->string('phone', 24)->nullable();
             $table->string('fax', 24)->nullable();
-            $table->string('email', 60);
+            $table->string('email', 60)->unique();
+            $table->string('password')->nullable();
             $table->unsignedBigInteger('support_rep_id');
             $table->timestamps();
             $table->foreign('support_rep_id')->references('id')->on('employee');

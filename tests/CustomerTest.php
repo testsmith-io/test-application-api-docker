@@ -26,6 +26,7 @@ class CustomerTest extends TestCase
             'city' => 'new',
             'country' => 'new',
             'email' => 'new',
+            'password' => 'Test1234',
             'support_rep_id' => 3];
 
         $this->json('POST', 'api/customers', $payload)
@@ -39,11 +40,10 @@ class CustomerTest extends TestCase
 
     public function testRetrieveCustomer()
     {
-        factory(Customer::class)->create([
+        $this->refreshApplication();
+        $this->get( '/api/customers', $this->headers(factory(Customer::class)->create([
             'firstname' => 'Test'
-        ]);
-
-        $this->json('GET', '/api/customers')
+        ])))
             ->seeStatusCode(200)
             ->seeJsonContains(
                 ['firstname' => 'Test']
@@ -55,9 +55,9 @@ class CustomerTest extends TestCase
 
     public function testDeleteCustomer()
     {
+        $this->refreshApplication();
         $customer = factory(Customer::class)->create();
-
-        $this->json('DELETE', '/api/customers/' . $customer->id, [], [])
+        $this->json( "DELETE", '/api/customers/' . $customer->id, [], $this->headers($customer))
             ->seeStatusCode(204);
     }
 
@@ -66,8 +66,10 @@ class CustomerTest extends TestCase
         $customer = factory(Customer::class)->create([
             'firstname' => 'Test'
         ]);
-
-        $this->json('GET', '/api/customers/' . $customer->id, [], [])
+        $this->refreshApplication();
+        $this->get( '/api/customers/' . $customer->id,$this->headers(factory(Customer::class)->create([
+            'firstname' => 'Test'
+        ])))
             ->seeStatusCode(200);
     }
 
@@ -78,8 +80,10 @@ class CustomerTest extends TestCase
         ]);
 
         $payload = ['firstname' => 'new'];
-
-        $this->json('PUT', 'api/customers/' . $customer->id, $payload)
+        $this->refreshApplication();
+        $this->put( 'api/customers/' . $customer->id, $payload, $this->headers(factory(Customer::class)->create([
+            'firstname' => 'Test'
+        ])))
             ->seeStatusCode(200)
             ->seeJson([
                 'success' => true

@@ -16,4 +16,17 @@ abstract class TestCase extends BaseTestCase
     {
         return require __DIR__.'/../bootstrap/app.php';
     }
+
+    protected function headers($user = null)
+    {
+        $headers = ['Accept' => 'application/json'];
+
+        if (!is_null($user)) {
+            $token = app('auth')->fromUser($user);
+            $headers['authorization'] = 'Bearer '.$token;
+            //var_dump($headers);
+        }
+
+        return $headers;
+    }
 }

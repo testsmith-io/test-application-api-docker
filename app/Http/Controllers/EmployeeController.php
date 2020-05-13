@@ -6,10 +6,24 @@ use App\Employee;
 use App\Http\Requests\DestroyEmployee;
 use App\Http\Requests\StoreEmployee;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
+
+    /**
+     * Create a new AuthController.php instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:employee', ['except' => ['login', 'store']]);
+        $this->middleware('assign.guard:employee');
+    }
+
     /**
      * @OA\Get(
      *     path="/employees",
@@ -53,7 +67,162 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployee $request)
     {
-        return $this->jsonResponse(['employee' => Employee::create($request->all())], Response::HTTP_CREATED);
+        $input = $request->all();
+
+        // Hash the password
+        $input['password'] = app('hash')->make($input['password']);
+        return $this->jsonResponse(['employee' => Employee::create($input)], Response::HTTP_CREATED);
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/employees/login",
+     *     summary="Login employee",
+     *     operationId="login-employee",
+     *     tags={"Employee"},
+     *    	@OA\RequestBody(
+     *    		@OA\MediaType(
+     *                mediaType="application/json",
+     *    			@OA\Schema(
+     *    				 @OA\Property(property="email",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *    				 @OA\Property(property="password",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="A token",
+     *    		@OA\MediaType(
+     *                mediaType="application/json",
+     *    			@OA\Schema(
+     *    				 @OA\Property(property="access_token",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *    				 @OA\Property(property="token_type",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *    				 @OA\Property(property="expires_in",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    )
+     *             )
+     *         )
+     *     )
+     * )
+     * @param Request $request
+     * @return array
+     */
+    public function login(Request $request)
+    {
+        $credentials = $request->all(['email', 'password']);
+        if (!$token = app('auth')->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return $this->respondWithToken($token);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/employees/me",
+     *     summary="Retrieve current employee info",
+     *     operationId="get-current-employee-info",
+     *     tags={"Employee"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="A employee",
+     *         @OA\JsonContent(ref="#/components/schemas/EmployeeResponse"),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Error: Bad request. When required parameters were not supplied.",
+     *     ),
+     *     security={{ "apiAuth": {} }}
+     * )
+     */
+    public function me()
+    {
+        return response()->json(app('auth')->user());
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/employees/logout",
+     *     summary="Destroy token",
+     *     operationId="destroy-token-employee",
+     *     tags={"Employee"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="A token",
+     *    		@OA\MediaType(
+     *                mediaType="application/json",
+     *    			@OA\Schema(
+     *    				 @OA\Property(property="message",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *             )
+     *         )
+     *     ),
+     *     security={{ "apiAuth": {} }}
+     * )
+     */
+    public function logout()
+    {
+        app('auth')->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/employees/refresh",
+     *     summary="Refresh token",
+     *     operationId="get-new-token-employee",
+     *     tags={"Employee"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="A token",
+     *    		@OA\MediaType(
+     *                mediaType="application/json",
+     *    			@OA\Schema(
+     *    				 @OA\Property(property="access_token",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *    				 @OA\Property(property="token_type",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    ),
+     *    				 @OA\Property(property="expires_in",
+     *                        type="string",
+     *                        example="",
+     *                        description=""
+     *                    )
+     *             )
+     *         )
+     *     )
+     * )
+     */
+    public function refresh()
+    {
+        return $this->respondWithToken(app('auth')->refresh());
     }
 
     /**

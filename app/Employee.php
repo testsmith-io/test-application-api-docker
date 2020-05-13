@@ -2,7 +2,11 @@
 
 namespace App;
 
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Lumen\Auth\Authorizable;
+use Tymon\JWTAuth\Contracts\JWTSubject as AuthenticatableUserContract;
 
 /**
  * Class Employee
@@ -29,10 +33,12 @@ use Illuminate\Database\Eloquent\Model;
  *         @OA\Property(property="phone", type="string"),
  *         @OA\Property(property="fax", type="string"),
  *         @OA\Property(property="email", type="string"),
+ *         @OA\Property(property="password", type="string"),
  *         @OA\Property(property="created_at", type="string"),
  *     }
  * )
  **/
+
 /**
  * @OA\Schema(
  *     schema="EmployeeResponse",
@@ -59,10 +65,15 @@ use Illuminate\Database\Eloquent\Model;
  *     }
  * )
  */
-class Employee extends BaseModel
+class Employee extends Model implements AuthenticatableContract, AuthorizableContract, AuthenticatableUserContract
 {
+    use \Illuminate\Auth\Authenticatable, Authorizable;
+
+    const CREATED_AT = null;
+
     protected $table = 'employee';
-    protected $fillable = ['firstname', 'lastname', 'title', 'reports_to', 'birthdate', 'hiredate', 'address', 'city', 'state', 'country', 'postalcode', 'phone', 'fax', 'email'];
+    protected $hidden = ['updated_at', 'password'];
+    protected $fillable = ['firstname', 'lastname', 'title', 'reports_to', 'birthdate', 'hiredate', 'address', 'city', 'state', 'country', 'postalcode', 'phone', 'fax', 'email', 'password'];
 
     public function customers()
     {
@@ -74,4 +85,23 @@ class Employee extends BaseModel
         return $this->belongsTo('App\Employee', 'reports_to');
     }
 
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }

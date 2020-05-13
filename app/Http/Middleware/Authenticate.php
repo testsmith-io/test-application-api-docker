@@ -5,6 +5,17 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Factory as Auth;
 
+/**
+ * @OA\SecurityScheme(
+ *     type="http",
+ *     description="Login with email and password to get the authentication token",
+ *     name="Token based Based",
+ *     in="header",
+ *     scheme="bearer",
+ *     bearerFormat="JWT",
+ *     securityScheme="apiAuth",
+ * )
+ */
 class Authenticate
 {
     /**
@@ -36,7 +47,7 @@ class Authenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
         return $next($request);

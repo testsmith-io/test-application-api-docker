@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000/api",
+            "url": "/api",
             "description": "Local environment"
         }
     ],
@@ -393,6 +393,165 @@
                 }
             }
         },
+        "/customers/login": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Login customer",
+                "operationId": "login-customer",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "password": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "token_type": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "expires_in": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/customers/me": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Retrieve current customer info",
+                "operationId": "get-current-customer-info",
+                "responses": {
+                    "200": {
+                        "description": "A customer",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/customers/logout": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Destroy token",
+                "operationId": "destroy token",
+                "responses": {
+                    "200": {
+                        "description": "A token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/customers/refresh": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Refresh token",
+                "operationId": "get-new-token",
+                "responses": {
+                    "200": {
+                        "description": "A token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "token_type": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "expires_in": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/customers/{customerId}": {
             "get": {
                 "tags": [
@@ -548,6 +707,165 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/EmployeeResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employees/login": {
+            "post": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Login employee",
+                "operationId": "login-employee",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    },
+                                    "password": {
+                                        "description": "",
+                                        "type": "string",
+                                        "example": ""
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "A token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "token_type": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "expires_in": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/employees/me": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Retrieve current employee info",
+                "operationId": "get-current-employee-info",
+                "responses": {
+                    "200": {
+                        "description": "A employee",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/EmployeeResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/employees/logout": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Destroy token",
+                "operationId": "destroy-token-employee",
+                "responses": {
+                    "200": {
+                        "description": "A token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/employees/refresh": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Refresh token",
+                "operationId": "get-new-token-employee",
+                "responses": {
+                    "200": {
+                        "description": "A token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "token_type": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        },
+                                        "expires_in": {
+                                            "description": "",
+                                            "type": "string",
+                                            "example": ""
+                                        }
+                                    },
+                                    "type": "object"
                                 }
                             }
                         }
@@ -846,7 +1164,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -876,7 +1199,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
             }
         },
         "/invoices/{invoiceId}": {
@@ -911,7 +1239,12 @@
                     "400": {
                         "description": "Error: Bad request. When required parameters were not supplied."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
             },
             "put": {
                 "tags": [
@@ -958,7 +1291,12 @@
                     "default": {
                         "description": "unexpected error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -984,7 +1322,12 @@
                     "400": {
                         "description": "Error: Bad request. When required parameters were not supplied."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
             }
         },
         "/invoicelines": {
@@ -1728,7 +2071,7 @@
                     },
                     "lastname": {
                         "description": "Class Customer",
-                        "type": "integer"
+                        "type": "string"
                     },
                     "company": {
                         "description": "Class Customer",
@@ -1740,7 +2083,7 @@
                     },
                     "city": {
                         "description": "Class Customer",
-                        "type": "integer"
+                        "type": "string"
                     },
                     "state": {
                         "description": "Class Customer",
@@ -1752,7 +2095,7 @@
                     },
                     "postalcode": {
                         "description": "Class Customer",
-                        "type": "integer"
+                        "type": "string"
                     },
                     "phone": {
                         "description": "Class Customer",
@@ -1764,7 +2107,11 @@
                     },
                     "email": {
                         "description": "Class Customer",
-                        "type": "integer"
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "Class Customer",
+                        "type": "string"
                     },
                     "support_rep_id": {
                         "description": "Class Customer",
@@ -1783,7 +2130,7 @@
                         "type": "string"
                     },
                     "lastname": {
-                        "type": "integer"
+                        "type": "string"
                     },
                     "company": {
                         "type": "string"
@@ -1792,7 +2139,7 @@
                         "type": "string"
                     },
                     "city": {
-                        "type": "integer"
+                        "type": "string"
                     },
                     "state": {
                         "type": "string"
@@ -1801,7 +2148,7 @@
                         "type": "string"
                     },
                     "postalcode": {
-                        "type": "integer"
+                        "type": "string"
                     },
                     "phone": {
                         "type": "string"
@@ -1810,7 +2157,7 @@
                         "type": "string"
                     },
                     "email": {
-                        "type": "integer"
+                        "type": "string"
                     },
                     "support_rep_id": {
                         "type": "integer"
@@ -1883,6 +2230,10 @@
                         "type": "string"
                     },
                     "email": {
+                        "description": "Class Employee",
+                        "type": "string"
+                    },
+                    "password": {
                         "description": "Class Employee",
                         "type": "string"
                     },
@@ -2252,6 +2603,16 @@
                     }
                 },
                 "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "apiAuth": {
+                "type": "http",
+                "description": "Login with email and password to get the authentication token",
+                "name": "Token based Based",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
     }

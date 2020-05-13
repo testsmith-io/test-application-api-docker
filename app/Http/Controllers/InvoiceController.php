@@ -12,6 +12,16 @@ class InvoiceController extends Controller
 {
 
     /**
+     * Create a new AuthController.php instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:customer');
+    }
+
+    /**
      * @OA\Get(
      *     path="/invoices",
      *     summary="Retrieve all invoices",
@@ -25,11 +35,12 @@ class InvoiceController extends Controller
      *             @OA\Items(ref="#/components/schemas/InvoiceResponse")
      *         ),
      *     ),
+     *     security={{ "apiAuth": {} }}
      * )
      */
     public function index()
     {
-        return $this->jsonResponse(Invoice::all());
+        return $this->jsonResponse(Invoice::all()->where('customer_id', app('auth')->user()->id));
     }
 
     /**
@@ -47,7 +58,8 @@ class InvoiceController extends Controller
      *         response=200,
      *         description="An Invoice",
      *         @OA\JsonContent(ref="#/components/schemas/InvoiceResponse"),
-     *     )
+     *     ),
+     *     security={{ "apiAuth": {} }}
      * )
      * @param Request $request
      * @return array
@@ -79,11 +91,12 @@ class InvoiceController extends Controller
      *         response="400",
      *         description="Error: Bad request. When required parameters were not supplied.",
      *     ),
+     *     security={{ "apiAuth": {} }}
      * )
      */
     public function show($id)
     {
-        return $this->jsonResponse(Invoice::find($id));
+        return $this->jsonResponse(Invoice::where('id', $id)->where('customer_id', app('auth')->user()->id)->first());
     }
 
     /**
@@ -116,14 +129,15 @@ class InvoiceController extends Controller
      *         response="default",
      *         description="unexpected error",
      *         @OA\Schema(ref="#/components/schemas/Error")
-     *     )
+     *     ),
+     *     security={{ "apiAuth": {} }}
      * )
      * @param Request $request
      * @return array
      */
     public function update(StoreInvoice $request, $id)
     {
-        return $this->jsonResponse(['success' => (bool)Invoice::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        return $this->jsonResponse(['success' => (bool)Invoice::where('id', $id)->where('customer_id', app('auth')->user()->id)->update($request->all())], Response::HTTP_OK);
     }
 
     /**
@@ -147,12 +161,13 @@ class InvoiceController extends Controller
      *         response="400",
      *         description="Error: Bad request. When required parameters were not supplied.",
      *     ),
+     *     security={{ "apiAuth": {} }}
      * )
      */
     public function destroy(DestroyInvoice $request, $id)
     {
         try {
-            Invoice::find($id)->delete();
+            Invoice::find($id)->where('customer_id', app('auth')->user()->id)->delete();
             return $this->jsonResponse(null, Response::HTTP_NO_CONTENT);
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {

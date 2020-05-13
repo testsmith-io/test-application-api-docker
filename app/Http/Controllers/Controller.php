@@ -8,6 +8,12 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  * @OA\Info(
  *   title="Chinook API",
  *   version="1.0",
+ * @OA\SecurityScheme(
+ *   securityScheme="token",
+ *   type="apiKey",
+ *   name="Authorization",
+ *   in="header"
+ * ),
  *   @OA\Contact(
  *     email="info@testsmith.io",
  *     name="Testsmith"
@@ -15,7 +21,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
  * )
  *  * @OA\Server(
  *     description="Local environment",
- *     url="http://localhost:8000/api"
+ *     url="/api"
  * )
  */
 class Controller extends BaseController
@@ -37,4 +43,20 @@ class Controller extends BaseController
         }
     }
     */
+
+    /**
+     * Get the token array structure.
+     *
+     * @param string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => app('auth')->factory()->getTTL() * 60
+        ]);
+    }
 }
