@@ -3,7 +3,7 @@ FROM php:7.1.12-fpm
 RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src http://archive.debian.org/debian/ jessie main\ndeb http://security.debian.org jessie/updates main\ndeb-src http://security.debian.org jessie/updates main" > /etc/apt/sources.list
 
 RUN apt-get update \
-    && apt-get install -y libmcrypt-dev mysql-client libmagickwand-dev --no-install-recommends curl nano \
+    && apt-get install -y --force-yes libmcrypt-dev mysql-client libmagickwand-dev --no-install-recommends curl nano \
     && docker-php-ext-configure opcache --enable-opcache && docker-php-ext-install zip opcache xml gd mcrypt pdo_mysql
 
 # Copy configuration
