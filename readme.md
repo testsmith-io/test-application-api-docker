@@ -42,7 +42,7 @@ Use the following command line options:
 ## Migrate database
 `docker-compose exec app php artisan migrate`
 
-## Seed database
+## Seed database (takes a few seconds)
 `docker-compose exec app php artisan db:seed`
 
 ## phpmyadmin
@@ -51,5 +51,8 @@ Use the following command line options:
 Username `root` and password `root`
 
 ## application
-`http://localhost:8091
-`
+`http://localhost:8091`
+
+## Serving the application locally
+
+`php -S localhost:8000 -t public`
