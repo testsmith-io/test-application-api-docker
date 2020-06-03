@@ -1,5 +1,6 @@
 <?php
 
+use App\Customer;
 use App\Invoice;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -21,9 +22,11 @@ class InvoiceTest extends TestCase
 
     public function testStoreNewInvoice()
     {
+        $customer = factory(Customer::class)->create();
+
         $payload = ['billing_address' => 'new',
-            'customer_id' => 3,
-            'invoice_date' => '1-1-1986',
+            'customer_id' => $customer->id,
+            'invoice_date' => '1986-01-01',
             'billing_city' => 'new',
             'billing_country' => 'new',
             'total' => 10];

@@ -1,6 +1,7 @@
 <?php
 
 use App\Customer;
+use App\Employee;
 
 class CustomerTest extends TestCase
 {
@@ -20,13 +21,15 @@ class CustomerTest extends TestCase
 
     public function testStoreNewCustomer()
     {
+        $employee = factory(Employee::class)->create();
+
         $payload = ['firstname' => 'new',
             'lastname' => 'new',
             'address' => 'new',
             'city' => 'new',
             'country' => 'new',
             'email' => 'new',
-            'support_rep_id' => 3];
+            'support_rep_id' => $employee->id];
 
         $this->json('POST', 'api/customers', $payload)
             ->seeStatusCode(201)

@@ -29,7 +29,6 @@ use Illuminate\Database\Eloquent\Model;
  *         @OA\Property(property="phone", type="string"),
  *         @OA\Property(property="fax", type="string"),
  *         @OA\Property(property="email", type="string"),
- *         @OA\Property(property="created_at", type="string"),
  *     }
  * )
  **/

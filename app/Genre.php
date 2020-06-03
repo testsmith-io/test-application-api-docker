@@ -11,7 +11,7 @@ namespace App;
  *     schema="GenreRequest",
  *     type="object",
  *     title="GenreRequest",
- *     required={"title", "body"},
+ *     required={"name"},
  *     properties={
  *         @OA\Property(property="name", type="string")
  *     }

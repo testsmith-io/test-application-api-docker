@@ -1,6 +1,10 @@
 <?php
 
+use App\Mediatype;
 use App\Track;
+use App\Genre;
+use App\Album;
+
 
 class TrackTest extends TestCase
 {
@@ -18,10 +22,14 @@ class TrackTest extends TestCase
 
     public function testStoreNewTrack()
     {
+        $mediatype = factory(Mediatype::class)->create();
+        $genre = factory(Genre::class)->create();
+        $album = factory(Album::class)->create();
+
         $payload = ['name' => 'new',
-            'album_id' => 4,
-            'mediatype_id' => 4,
-            'genre_id' => 6,
+            'album_id' => $album->id,
+            'mediatype_id' => $mediatype->id,
+            'genre_id' => $genre->id,
             'milliseconds' => 325,
             'bytes' => 123,
             'unit_price' => 0.99];

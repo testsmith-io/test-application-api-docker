@@ -19,8 +19,8 @@ class CreateEmployeeTable extends Migration
             $table->string('firstname', 20);
             $table->string('title', 30);
             $table->unsignedBigInteger('reports_to')->nullable();
-            $table->dateTime('birthdate');
-            $table->dateTime('hiredate');
+            $table->date('birthdate');
+            $table->date('hiredate');
             $table->string('address', 70);
             $table->string('city', 40);
             $table->string('state', 40);

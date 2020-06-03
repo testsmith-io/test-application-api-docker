@@ -46,7 +46,7 @@ use Illuminate\Database\Eloquent\Model;
  * )
  */
 
-class Track extends Model
+class Track extends BaseModel
 {
     protected $table = 'track';
     protected $fillable = ['name', 'composer', 'album_id', 'mediatype_id', 'genre_id', 'milliseconds', 'bytes', 'unit_price'];

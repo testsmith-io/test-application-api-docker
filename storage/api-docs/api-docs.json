@@ -1885,10 +1885,6 @@
                     "email": {
                         "description": "Class Employee",
                         "type": "string"
-                    },
-                    "created_at": {
-                        "description": "Class Employee",
-                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -1956,8 +1952,7 @@
             "GenreRequest": {
                 "title": "GenreRequest",
                 "required": [
-                    "title",
-                    "body"
+                    "name"
                 ],
                 "properties": {
                     "name": {
@@ -2085,10 +2080,6 @@
                     "quantity": {
                         "description": "Class Invoiceline",
                         "type": "integer"
-                    },
-                    "created_at": {
-                        "description": "Class Invoiceline",
-                        "type": "string"
                     }
                 },
                 "type": "object"

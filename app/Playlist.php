@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  *     schema="PlaylistRequest",
  *     type="object",
  *     title="PlaylistRequest",
- *     required={"title", "body"},
+ *     required={"name"},
  *     properties={
  *         @OA\Property(property="name", type="string")
  *     }
@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * )
  */
 
-class Playlist extends Model
+class Playlist extends BaseModel
 {
     protected $table = 'playlist';
     protected $fillable = ['name'];

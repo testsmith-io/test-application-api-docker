@@ -21,14 +21,9 @@ class StoreGenre extends BaseFormRequest
      */
     public function rules()
     {
-        switch($this->method()) {
-            case 'POST':
-                {
-                    return [
-                        'name' => 'required|string|max:120'
-                    ];
-                }
-        }
+        return [
+            'name' => 'required|string|max:120'
+        ];
 
     }
 }

@@ -33,7 +33,7 @@ class StoreCustomer extends BaseFormRequest
             'phone' => 'string|max:24',
             'fax' => 'string|max:24',
             'email' => 'required|string|max:60',
-            'support_rep_id' => 'numeric'
+            'support_rep_id' => 'numeric|exists:employee,id'
         ];
     }
 }
