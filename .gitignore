@@ -1,5 +1,6 @@
 /vendor
 /.idea
+report/
 Homestead.json
 Homestead.yaml
 .phpunit.result.cache
