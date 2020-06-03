@@ -1,6 +1,8 @@
 <?php
 
+use App\Invoice;
 use App\Invoiceline;
+use App\Track;
 
 class InvoicelineTest extends TestCase
 {
@@ -16,10 +18,14 @@ class InvoicelineTest extends TestCase
 
     public function testStoreNewInvoiceline()
     {
-        $payload = ['invoice_id' => 3,
-            'track_id' => 3,
+        $invoice = factory(Invoice::class)->create();
+        $track = factory(Track::class)->create();
+
+        $payload = ['invoice_id' => $invoice->id,
+            'track_id' => $track->id,
             'unit_price' => 0.99,
             'quantity' => 5];
+
 
         $this->json('POST', 'api/invoicelines', $payload)
             ->seeStatusCode(201)

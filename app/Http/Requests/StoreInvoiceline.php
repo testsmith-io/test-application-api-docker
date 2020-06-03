@@ -22,8 +22,8 @@ class StoreInvoiceline extends BaseFormRequest
     public function rules()
     {
         return [
-            'invoice_id' => 'required|numeric',
-            'track_id' => 'required|numeric',
+            'invoice_id' => 'required|numeric|exists:invoice,id',
+            'track_id' => 'required|numeric|exists:track,id',
             'unit_price' => 'required',
             'quantity' => 'required'
         ];

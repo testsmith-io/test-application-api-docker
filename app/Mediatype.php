@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  *     schema="MediatypeRequest",
  *     type="object",
  *     title="MediatypeRequest",
- *     required={"title", "body"},
+ *     required={"name"},
  *     properties={
  *         @OA\Property(property="name", type="string")
  *     }
@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * )
  */
 
-class Mediatype extends Model
+class Mediatype extends BaseModel
 {
     protected $table = 'mediatype';
     protected $fillable = ['name'];

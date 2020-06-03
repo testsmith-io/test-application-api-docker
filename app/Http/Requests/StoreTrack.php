@@ -23,9 +23,9 @@ class StoreTrack extends BaseFormRequest
     {
         return [
             'name' => 'required|string|max:200',
-            'album_id'=> 'required|numeric',
-            'mediatype_id' => 'required|numeric',
-            'genre_id' => 'required|numeric',
+            'album_id'=> 'required|numeric|exists:album,id',
+            'mediatype_id' => 'required|numeric|exists:mediatype,id',
+            'genre_id' => 'required|numeric|exists:genre,id',
             'milliseconds' => 'required|numeric',
             'bytes' => 'required|numeric',
             'unit_price' => 'required'

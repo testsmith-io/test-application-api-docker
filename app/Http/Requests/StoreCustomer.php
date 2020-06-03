@@ -34,7 +34,7 @@ class StoreCustomer extends BaseFormRequest
             'fax' => 'string|max:24',
             'email' => 'required|string|max:60',
             'password' => 'required|string|max:255',
-            'support_rep_id' => 'numeric'
+            'support_rep_id' => 'numeric|exists:employee,id'
         ];
     }
 }

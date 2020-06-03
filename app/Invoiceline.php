@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Model;
  *         @OA\Property(property="track_id", type="integer"),
  *         @OA\Property(property="unit_price", type="string"),
  *         @OA\Property(property="quantity", type="integer"),
- *         @OA\Property(property="created_at", type="string"),
  *     }
  * )
  **/
@@ -39,7 +38,7 @@ use Illuminate\Database\Eloquent\Model;
  * )
  */
 
-class Invoiceline extends Model
+class Invoiceline extends BaseModel
 {
     protected $table = 'invoiceline';
     protected $fillable = ['invoice_id', 'track_id', 'unit_price', 'quantity'];
