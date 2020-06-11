@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Contracts\Console\Kernel;
 use Laravel\Lumen\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase

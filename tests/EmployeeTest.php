@@ -1,7 +1,4 @@
 <?php
-
-
-use App\Customer;
 use App\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;

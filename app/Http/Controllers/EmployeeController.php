@@ -8,7 +8,6 @@ use App\Http\Requests\StoreEmployee;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
