@@ -33,7 +33,7 @@ class CustomerTest extends TestCase
             'support_rep_id' => $employee->id];
 
         $this->json('POST', 'api/customers', $payload)
-            ->seeStatusCode(201)
+            ->seeStatusCode(200)
             ->seeJsonStructure([
                 'customer' => [
                     'firstname'

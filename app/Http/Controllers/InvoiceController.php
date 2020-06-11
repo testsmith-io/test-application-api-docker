@@ -12,7 +12,7 @@ class InvoiceController extends Controller
 {
 
     /**
-     * Create a new AuthController.php instance.
+     * Create a new InvoiceController.php instance.
      *
      * @return void
      */

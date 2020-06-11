@@ -30,6 +30,7 @@ $factory->define(Employee::class, function (Faker $faker) {
         'postalcode' => $faker->postcode,
         'phone' => $faker->phoneNumber,
         'fax' => $faker->phoneNumber,
-        'email' => $faker->email
+        'email' => $faker->email,
+        'password' => $faker->password
     ];
 });

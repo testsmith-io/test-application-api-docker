@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Customer;
 use App\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -24,6 +25,7 @@ class EmployeeTest extends TestCase
     public function testStoreNewEmployee()
     {
         $payload = ['firstname' => 'new',
+            'password' => 'Test1234',
             'lastname' => 'new',
             'title' => 'new',
             'hiredate' => '2001-01-01',
@@ -52,7 +54,9 @@ class EmployeeTest extends TestCase
             'firstname' => 'Test'
         ]);
 
-        $this->json('GET', '/api/employees')
+        $this->actingAs(factory(Employee::class)->create([
+            'firstname' => 'Test'
+        ]), 'employee')->json('GET', '/api/employees', [])
             ->seeStatusCode(200)
             ->seeJsonContains(
                 ['firstname' => 'Test']
@@ -66,7 +70,9 @@ class EmployeeTest extends TestCase
     {
         $employee = factory(Employee::class)->create();
 
-        $this->json('DELETE', '/api/employees/' . $employee->id, [], [])
+        $this->json('DELETE', '/api/employees/' . $employee->id, [], $this->headers(factory(Employee::class)->create([
+            'firstname' => 'Test'
+        ])))
             ->seeStatusCode(204);
     }
 }

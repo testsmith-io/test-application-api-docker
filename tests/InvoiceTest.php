@@ -1,19 +1,16 @@
 <?php
 
 use App\Customer;
+use App\Employee;
 use App\Invoice;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class InvoiceTest extends TestCase
 {
     public function testRequiresInvoice()
     {
-        $this->refreshApplication();
-        $this->post('api/invoices', [], $this->headers(factory(Customer::class)->create([
-            'firstname' => 'Test'
-        ])))
+        $this->actingAs(factory(Employee::class)->create(), 'customer')->post('api/invoices', [], [])
             ->seeStatusCode(422)
             ->seeJson([
                 'billing_address' => ['The billing address field is required.'],
@@ -34,10 +31,7 @@ class InvoiceTest extends TestCase
             'billing_country' => 'new',
             'total' => 10];
 
-        $this->refreshApplication();
-        $this->json('POST', 'api/invoices', $payload, $this->headers(factory(Customer::class)->create([
-            'firstname' => 'Test'
-        ])))
+        $this->actingAs($customer, 'customer')->json('POST', 'api/invoices', $payload, [])
             ->seeStatusCode(201)
             ->seeJsonStructure([
                 'invoice' => [
@@ -56,7 +50,6 @@ class InvoiceTest extends TestCase
             'customer_id' => $customer->id
         ]);
 
-        $this->refreshApplication();
         $response = $this->get('/api/invoices', $this->headers($customer));
         $response->seeStatusCode(200)
             ->seeJsonContains(
