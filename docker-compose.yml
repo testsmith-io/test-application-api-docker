@@ -20,6 +20,8 @@ services:
       context: ./docker
       dockerfile: web.docker
     working_dir: /var/www
+    depends_on:
+      - mariadb
     volumes_from:
       - app
     ports:
