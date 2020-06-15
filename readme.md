@@ -28,11 +28,14 @@ As from this branch the project implemented [Swagger](https://swagger.io/) and P
 ## Sprint 2
 Protected API endpoints. An employee can only query related customers. A customer can only query its own invoices. We can use the following endpoints:
 
+### Customer
 - `/api/customers/login`
 - `/api/customers/logout`
 - `/api/customers/refresh`
 - `/api/customers/me`
 
+
+### Employee
 - `/api/employees/login`
 - `/api/employees/logout`
 - `/api/employees/refresh`
