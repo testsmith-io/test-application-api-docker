@@ -84,6 +84,15 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->delete('playlists/{id}', ['uses' => 'PlaylistController@destroy']);
     $router->put('playlists/{id}', ['uses' => 'PlaylistController@update']);
 
+    $router->get('reports/countCustomersBySalesAgent', ['uses' => 'ReportController@countCustomersBySalesAgent']);
+    $router->get('reports/totalSalesPerCountry', ['uses' => 'ReportController@totalSalesPerCountry']);
+    $router->get('reports/totalSalesPerSalesAgent', ['uses' => 'ReportController@totalSalesPerSalesAgent']);
+    $router->get('reports/top10PurchasedTracks', ['uses' => 'ReportController@top10PurchasedTracks']);
+    $router->get('reports/top5BestSellingArtists', ['uses' => 'ReportController@top5BestSellingArtists']);
+    $router->get('reports/topArtistByGenre', ['uses' => 'ReportController@topArtistByGenre']);
+    $router->get('reports/totalSalesOfYear', ['uses' => 'ReportController@totalSalesOfYear']);
+    $router->get('reports/customersByCountry', ['uses' => 'ReportController@customersByCountry']);
+
     $router->get('tracks', ['uses' => 'TrackController@index']);
     $router->get('tracks/{id}', ['uses' => 'TrackController@show']);
     $router->post('tracks', ['uses' => 'TrackController@store']);

@@ -1816,6 +1816,191 @@
                 }
             }
         },
+        "/reports/countCustomersBySalesAgent": {
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Retrieve number of customers by sales agent",
+                "operationId": "retreive-number-of-customers-sales-agent",
+                "responses": {
+                    "200": {
+                        "description": "Sales agent fullname and number of customers"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/reports/totalSalesPerCountry": {
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Retrieve total sales per country",
+                "operationId": "retreive-total-sales-per-country",
+                "responses": {
+                    "200": {
+                        "description": "County and amount of sales"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/reports/totalSalesPerSalesAgent": {
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Retrieve total sales per sales agent",
+                "operationId": "retreive-total-sales-per-sales-agent",
+                "responses": {
+                    "200": {
+                        "description": "Sales agent fullname and total sales"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/reports/top10PurchasedTracks": {
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Retrieve top 10 purchached tracks",
+                "operationId": "retreive-top-10-purchased-tracks",
+                "responses": {
+                    "200": {
+                        "description": "Track name and purchase amount"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/reports/top5BestSellingArtists": {
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Retrieve top 5 best selling artists",
+                "operationId": "retreive-top-5-best-selling-artists",
+                "responses": {
+                    "200": {
+                        "description": "Artist name and amount earned"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/reports/topArtistByGenre": {
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Retrieve top artists by genre",
+                "operationId": "retreive-top-artists-by-genre",
+                "parameters": [
+                    {
+                        "name": "genre",
+                        "in": "query",
+                        "description": "Genre, default=Rock",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Artist name and amount of songs"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/reports/totalSalesOfYear": {
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Retrieve total sales of year",
+                "operationId": "retreive-total-sales-of-year",
+                "parameters": [
+                    {
+                        "name": "year",
+                        "in": "query",
+                        "description": "Year, default=2010",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Artist name and amount of songs"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
+        "/reports/customersByCountry": {
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Retrieve customers by country",
+                "operationId": "retreive-customers-by-country",
+                "parameters": [
+                    {
+                        "name": "country",
+                        "in": "query",
+                        "description": "Country, default=France",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Customer fullname, invoice id, invoice date, invoice country"
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
         "/tracks": {
             "get": {
                 "tags": [
@@ -2236,10 +2421,6 @@
                     "password": {
                         "description": "Class Employee",
                         "type": "string"
-                    },
-                    "created_at": {
-                        "description": "Class Employee",
-                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -2307,8 +2488,7 @@
             "GenreRequest": {
                 "title": "GenreRequest",
                 "required": [
-                    "title",
-                    "body"
+                    "name"
                 ],
                 "properties": {
                     "name": {
@@ -2436,10 +2616,6 @@
                     "quantity": {
                         "description": "Class Invoiceline",
                         "type": "integer"
-                    },
-                    "created_at": {
-                        "description": "Class Invoiceline",
-                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -2471,8 +2647,7 @@
             "MediatypeRequest": {
                 "title": "MediatypeRequest",
                 "required": [
-                    "title",
-                    "body"
+                    "name"
                 ],
                 "properties": {
                     "name": {
@@ -2500,8 +2675,7 @@
             "PlaylistRequest": {
                 "title": "PlaylistRequest",
                 "required": [
-                    "title",
-                    "body"
+                    "name"
                 ],
                 "properties": {
                     "name": {

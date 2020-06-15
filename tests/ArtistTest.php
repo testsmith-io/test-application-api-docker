@@ -50,6 +50,15 @@ class ArtistTest extends TestCase
             ->seeStatusCode(204);
     }
 
+    public function testDeleteNonExistingArtist()
+    {
+        $this->delete('/api/artists/99')
+            ->seeStatusCode(422)
+            ->seeJson([
+                'id' => ['The selected id is invalid.']
+            ]);
+    }
+
     public function testShowArtist()
     {
         $artist = factory(Artist::class)->create([

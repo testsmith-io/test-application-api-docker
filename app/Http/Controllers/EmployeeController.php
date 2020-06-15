@@ -13,7 +13,7 @@ class EmployeeController extends Controller
 {
 
     /**
-     * Create a new AuthController.php instance.
+     * Create a new EmployeeController.php instance.
      *
      * @return void
      */
