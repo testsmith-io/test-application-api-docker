@@ -40,7 +40,7 @@ class GenreTest extends TestCase
                 ['name' => 'Test']
             )
             ->seeJsonStructure([
-                '*' => ['name'],
+                'data' => ['*' => ['name']],
             ]);
     }
 

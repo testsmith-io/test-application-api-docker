@@ -38,7 +38,7 @@ class PlaylistTest extends TestCase
                 ['name' => 'Test']
             )
             ->seeJsonStructure([
-                '*' => ['name'],
+                'data' => ['*' => ['name']],
             ]);
     }
 

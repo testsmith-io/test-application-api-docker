@@ -54,7 +54,7 @@ class TrackTest extends TestCase
                 ['name' => 'Test']
             )
             ->seeJsonStructure([
-                '*' => ['name'],
+                'data' => ['*' => ['name']],
             ]);
     }
 

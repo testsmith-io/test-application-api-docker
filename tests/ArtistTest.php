@@ -32,11 +32,10 @@ class ArtistTest extends TestCase
             'name' => 'Test'
         ]);
 
-        $response = $this->json('GET', '/api/artists')
+        $this->json('GET', '/api/artists')
             ->seeStatusCode(200)
             ->seeJsonStructure([
-                '*' => ['name',
-                        'albums'],
+                'data' => ['*' => ['name', 'albums']],
             ]);
     }
 

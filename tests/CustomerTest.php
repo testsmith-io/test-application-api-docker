@@ -44,7 +44,7 @@ class CustomerTest extends TestCase
     public function testRetrieveCustomer()
     {
         $this->refreshApplication();
-        $this->get( '/api/customers', $this->headers(factory(Customer::class)->create([
+        $this->get('/api/customers', $this->headers(factory(Customer::class)->create([
             'firstname' => 'Test'
         ])))
             ->seeStatusCode(200)
@@ -52,7 +52,7 @@ class CustomerTest extends TestCase
                 ['firstname' => 'Test']
             )
             ->seeJsonStructure([
-                '*' => ['firstname'],
+                'data' => ['*' => ['firstname']],
             ]);
     }
 
@@ -60,7 +60,7 @@ class CustomerTest extends TestCase
     {
         $this->refreshApplication();
         $customer = factory(Customer::class)->create();
-        $this->json( "DELETE", '/api/customers/' . $customer->id, [], $this->headers($customer))
+        $this->json("DELETE", '/api/customers/' . $customer->id, [], $this->headers($customer))
             ->seeStatusCode(204);
     }
 
@@ -70,7 +70,7 @@ class CustomerTest extends TestCase
             'firstname' => 'Test'
         ]);
         $this->refreshApplication();
-        $this->get( '/api/customers/' . $customer->id,$this->headers(factory(Customer::class)->create([
+        $this->get('/api/customers/' . $customer->id, $this->headers(factory(Customer::class)->create([
             'firstname' => 'Test'
         ])))
             ->seeStatusCode(200);
@@ -84,7 +84,7 @@ class CustomerTest extends TestCase
 
         $payload = ['firstname' => 'new'];
         $this->refreshApplication();
-        $this->put( 'api/customers/' . $customer->id, $payload, $this->headers(factory(Customer::class)->create([
+        $this->put('api/customers/' . $customer->id, $payload, $this->headers(factory(Customer::class)->create([
             'firstname' => 'Test'
         ])))
             ->seeStatusCode(200)

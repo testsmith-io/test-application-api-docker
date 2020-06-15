@@ -56,7 +56,7 @@ class InvoiceTest extends TestCase
                 ['billing_address' => 'Test']
             )
             ->seeJsonStructure([
-                '*' => ['billing_address'],
+                'data' => ['*' => ['billing_address']],
             ]);
     }
 

@@ -18,6 +18,13 @@ class AlbumController extends Controller
      *     summary="Retrieve all albums",
      *     operationId="get-all-albums",
      *     tags={"Album"},
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="page, default=1",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="All albums",
@@ -30,7 +37,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Album::with('artist')->take(10)->get()); //DB::table('album')->get();
+        return $this->jsonResponse(Album::with('artist')->paginate());
     }
 
     /**

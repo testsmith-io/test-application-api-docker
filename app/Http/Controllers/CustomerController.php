@@ -30,6 +30,13 @@ class CustomerController extends Controller
      *     summary="Retrieve all customers",
      *     operationId="get-all-customers",
      *     tags={"Customer"},
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="page, default=1",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="All customers",
@@ -42,7 +49,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Customer::with('supportRep')->get());
+        return $this->jsonResponse(Customer::with('supportRep')->paginate());
     }
 
     /**

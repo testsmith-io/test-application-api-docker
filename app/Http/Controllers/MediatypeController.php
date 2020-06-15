@@ -16,6 +16,13 @@ class MediatypeController extends Controller
      *     summary="Retrieve all mediatypes",
      *     operationId="get-all-mediatypes",
      *     tags={"Mediatype"},
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="page, default=1",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="All mediatypes",
@@ -28,7 +35,7 @@ class MediatypeController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Mediatype::all());
+        return $this->jsonResponse(Mediatype::paginate());
     }
 
     /**

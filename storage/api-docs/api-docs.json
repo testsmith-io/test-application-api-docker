@@ -22,6 +22,17 @@
                 ],
                 "summary": "Retrieve all albums",
                 "operationId": "get-all-albums",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page, default=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "All albums",
@@ -184,6 +195,17 @@
                 ],
                 "summary": "Retrieve all artists",
                 "operationId": "get-all-artists",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page, default=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "All artists",
@@ -346,6 +368,17 @@
                 ],
                 "summary": "Retrieve all customers",
                 "operationId": "get-all-customers",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page, default=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "All customers",
@@ -988,6 +1021,17 @@
                 ],
                 "summary": "Retrieve all genres",
                 "operationId": "get-all-genres",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page, default=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "All genre",
@@ -1150,6 +1194,17 @@
                 ],
                 "summary": "Retrieve all invoices",
                 "operationId": "get-all-invoices",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page, default=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "All invoices",
@@ -1337,6 +1392,17 @@
                 ],
                 "summary": "Retrieve all invoicelines",
                 "operationId": "get-all-invoicelines",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page, default=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "All invoiceline",
@@ -1499,6 +1565,17 @@
                 ],
                 "summary": "Retrieve all mediatypes",
                 "operationId": "get-all-mediatypes",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page, default=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "All mediatypes",
@@ -1661,6 +1738,17 @@
                 ],
                 "summary": "Retrieve all playlists",
                 "operationId": "get-all-playlists",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page, default=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "All playlists",
@@ -2008,6 +2096,17 @@
                 ],
                 "summary": "Retrieve all tracks",
                 "operationId": "get-all-tracks",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "page, default=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "All tracks",

@@ -17,6 +17,13 @@ class TrackController extends Controller
      *     summary="Retrieve all tracks",
      *     operationId="get-all-tracks",
      *     tags={"Track"},
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="page, default=1",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="All tracks",
@@ -29,7 +36,7 @@ class TrackController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Track::all());
+        return $this->jsonResponse(Track::paginate());
     }
 
     /**

@@ -27,6 +27,13 @@ class InvoiceController extends Controller
      *     summary="Retrieve all invoices",
      *     operationId="get-all-invoices",
      *     tags={"Invoice"},
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="page, default=1",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="All invoices",
@@ -40,7 +47,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Invoice::all()->where('customer_id', app('auth')->user()->id));
+        return $this->jsonResponse(Invoice::where('customer_id', app('auth')->user()->id)->paginate());
     }
 
     /**

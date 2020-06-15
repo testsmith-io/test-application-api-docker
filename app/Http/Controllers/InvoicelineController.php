@@ -17,6 +17,13 @@ class InvoicelineController extends Controller
      *     summary="Retrieve all invoicelines",
      *     operationId="get-all-invoicelines",
      *     tags={"Invoiceline"},
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="page, default=1",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="All invoiceline",
@@ -29,7 +36,7 @@ class InvoicelineController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Invoiceline::all());
+        return $this->jsonResponse(Invoiceline::paginate());
     }
 
     /**

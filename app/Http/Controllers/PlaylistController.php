@@ -17,6 +17,13 @@ class PlaylistController extends Controller
      *     summary="Retrieve all playlists",
      *     operationId="get-all-playlists",
      *     tags={"Playlist"},
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="page, default=1",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="All playlists",
@@ -29,7 +36,7 @@ class PlaylistController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Playlist::all());
+        return $this->jsonResponse(Playlist::paginate());
     }
 
     /**

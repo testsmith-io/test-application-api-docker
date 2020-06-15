@@ -16,6 +16,13 @@ class GenreController extends Controller
      *     summary="Retrieve all genres",
      *     operationId="get-all-genres",
      *     tags={"Genre"},
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="page, default=1",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="All genre",
@@ -28,7 +35,7 @@ class GenreController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Genre::all());
+        return $this->jsonResponse(Genre::paginate());
     }
 
     /**

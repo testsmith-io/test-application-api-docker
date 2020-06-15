@@ -48,7 +48,7 @@ class InvoicelineTest extends TestCase
                 ['quantity' => "4"]
             )
             ->seeJsonStructure([
-                '*' => ['quantity'],
+                'data' => ['*' => ['quantity']],
             ]);
     }
 

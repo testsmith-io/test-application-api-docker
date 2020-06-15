@@ -16,6 +16,13 @@ class ArtistController extends Controller
      *     summary="Retrieve all artists",
      *     operationId="get-all-artists",
      *     tags={"Artist"},
+     *     @OA\Parameter(
+     *         name="page",
+     *         in="query",
+     *         description="page, default=1",
+     *         required=false,
+     *         @OA\Schema(type="integer")
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="All artists",
@@ -28,7 +35,7 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Artist::with('albums')->get());
+        return $this->jsonResponse(Artist::with('albums')->paginate());
     }
 
     /**
