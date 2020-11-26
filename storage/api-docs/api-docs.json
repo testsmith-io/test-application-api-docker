@@ -188,6 +188,44 @@
                 }
             }
         },
+        "/albums/search": {
+            "get": {
+                "tags": [
+                    "Album"
+                ],
+                "summary": "Retrieve specific albums matching the search query",
+                "operationId": "search-album",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "The query parameter in path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All matching albums",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AlbumResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
         "/artists": {
             "get": {
                 "tags": [
@@ -354,6 +392,44 @@
                 "responses": {
                     "204": {
                         "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/artists/search": {
+            "get": {
+                "tags": [
+                    "Artist"
+                ],
+                "summary": "Retrieve specific artists matching the search query",
+                "operationId": "search-artist",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "The query parameter in path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All matching artists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ArtistResponse"
+                                    }
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Error: Bad request. When required parameters were not supplied."
@@ -693,6 +769,49 @@
                 }
             }
         },
+        "/customers/search": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Retrieve specific customers matching the search query",
+                "operationId": "search-customer",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "The query parameter in path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All matching customers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/CustomerResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
         "/employees": {
             "get": {
                 "tags": [
@@ -1014,6 +1133,49 @@
                 }
             }
         },
+        "/employees/search": {
+            "get": {
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Retrieve specific employees matching the search query",
+                "operationId": "search-employee",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "The query parameter in path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All matching employees",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/EmployeeResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
+            }
+        },
         "/genres": {
             "get": {
                 "tags": [
@@ -1180,6 +1342,44 @@
                 "responses": {
                     "204": {
                         "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/genres/search": {
+            "get": {
+                "tags": [
+                    "Genre"
+                ],
+                "summary": "Retrieve specific genres matching the search query",
+                "operationId": "search-genre",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "The query parameter in path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All matching genres",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/GenreResponse"
+                                    }
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Error: Bad request. When required parameters were not supplied."
@@ -1731,6 +1931,44 @@
                 }
             }
         },
+        "/mediatypes/search": {
+            "get": {
+                "tags": [
+                    "Mediatype"
+                ],
+                "summary": "Retrieve specific mediatypes matching the search query",
+                "operationId": "search-mediatype",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "The query parameter in path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All matching mediatypes",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/MediatypeResponse"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
         "/playlists": {
             "get": {
                 "tags": [
@@ -1897,6 +2135,44 @@
                 "responses": {
                     "204": {
                         "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/playlists/search": {
+            "get": {
+                "tags": [
+                    "Playlist"
+                ],
+                "summary": "Retrieve specific playlists matching the search query",
+                "operationId": "search-playlist",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "The query parameter in path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All matching playlists",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/PlaylistResponse"
+                                    }
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Error: Bad request. When required parameters were not supplied."
@@ -2255,6 +2531,44 @@
                 "responses": {
                     "204": {
                         "description": "successful operation"
+                    },
+                    "400": {
+                        "description": "Error: Bad request. When required parameters were not supplied."
+                    }
+                }
+            }
+        },
+        "/tracks/search": {
+            "get": {
+                "tags": [
+                    "Track"
+                ],
+                "summary": "Retrieve specific tracks matching the search query",
+                "operationId": "search-track",
+                "parameters": [
+                    {
+                        "name": "q",
+                        "in": "query",
+                        "description": "The query parameter in path",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "All matching tracks",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/TrackResponse"
+                                    }
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Error: Bad request. When required parameters were not supplied."

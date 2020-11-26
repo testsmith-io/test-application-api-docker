@@ -90,7 +90,7 @@ class InvoicelineController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Invoiceline::find($id));
+        return $this->jsonResponse(Invoiceline::findOrFail($id));
     }
 
     /**

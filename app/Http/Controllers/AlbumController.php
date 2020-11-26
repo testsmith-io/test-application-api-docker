@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Album;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\DestroyAlbum;
 use App\Http\Requests\StoreAlbum;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class AlbumController extends Controller
@@ -91,7 +91,41 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Album::with('artist')->find($id));
+        return $this->jsonResponse(Album::with('artist')->findOrFail($id));
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/albums/search",
+     *     summary="Retrieve specific albums matching the search query",
+     *     operationId="search-album",
+     *     tags={"Album"},
+     *     @OA\Parameter(
+     *         name="q",
+     *         in="query",
+     *         description="The query parameter in path",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All matching albums",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/AlbumResponse")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Error: Bad request. When required parameters were not supplied.",
+     *     ),
+     * )
+     */
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+
+        return $this->jsonResponse(Album::with('artist')->where('title','like',"%{$q}%")->get());
     }
 
     /**

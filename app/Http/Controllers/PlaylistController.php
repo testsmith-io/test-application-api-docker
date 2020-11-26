@@ -6,6 +6,7 @@ use App\Http\Requests\DestroyPlaylist;
 use App\Http\Requests\StorePlaylist;
 use App\Playlist;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class PlaylistController extends Controller
@@ -90,7 +91,41 @@ class PlaylistController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Playlist::find($id));
+        return $this->jsonResponse(Playlist::findOrFail($id));
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/playlists/search",
+     *     summary="Retrieve specific playlists matching the search query",
+     *     operationId="search-playlist",
+     *     tags={"Playlist"},
+     *     @OA\Parameter(
+     *         name="q",
+     *         in="query",
+     *         description="The query parameter in path",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All matching playlists",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/PlaylistResponse")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Error: Bad request. When required parameters were not supplied.",
+     *     ),
+     * )
+     */
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+
+        return $this->jsonResponse(Playlist::where('name','like',"%{$q}%")->get());
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Requests\DestroyMediatype;
 use App\Http\Requests\StoreMediatype;
 use App\Mediatype;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class MediatypeController extends Controller
@@ -89,7 +90,40 @@ class MediatypeController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Mediatype::find($id));
+        return $this->jsonResponse(Mediatype::findOrFail($id));
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/mediatypes/search",
+     *     summary="Retrieve specific mediatypes matching the search query",
+     *     operationId="search-mediatype",
+     *     tags={"Mediatype"},
+     *     @OA\Parameter(
+     *         name="q",
+     *         in="query",
+     *         description="The query parameter in path",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All matching mediatypes",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/MediatypeResponse")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Error: Bad request. When required parameters were not supplied.",
+     *     ),
+     * )
+     */
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+        return $this->jsonResponse(Mediatype::where('name','like',"%{$q}%")->get());
     }
 
     /**

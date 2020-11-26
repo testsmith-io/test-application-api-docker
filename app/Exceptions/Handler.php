@@ -60,6 +60,11 @@ class Handler extends ExceptionHandler
                 'error' => 'Resource not found'
             ], 404);
         }
+        if ($exception instanceof ModelNotFoundException) {
+            return response()->json([
+                'error' => 'Requested item not found'
+            ], 404);
+        }
         if ($exception instanceof QueryException) {
             $errorCode = $exception->errorInfo[1];
             switch ($errorCode) {

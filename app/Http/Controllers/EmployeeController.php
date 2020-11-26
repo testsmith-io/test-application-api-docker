@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Album;
 use App\Employee;
 use App\Http\Requests\DestroyEmployee;
 use App\Http\Requests\StoreEmployee;
@@ -251,6 +252,43 @@ class EmployeeController extends Controller
     public function show($id)
     {
         return $this->jsonResponse(Employee::with('reportsTo', 'customers')->find($id));
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/employees/search",
+     *     summary="Retrieve specific employees matching the search query",
+     *     operationId="search-employee",
+     *     tags={"Employee"},
+     *     @OA\Parameter(
+     *         name="q",
+     *         in="query",
+     *         description="The query parameter in path",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All matching employees",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/EmployeeResponse")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Error: Bad request. When required parameters were not supplied.",
+     *     ),
+     *     security={{ "apiAuth": {} }}
+     * )
+     */
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+
+        return $this->jsonResponse(Employee::with('reportsTo', 'customers')->where('firstname','like',"%{$q}%")
+            ->orWhere('lastname','like',"%{$q}%")
+            ->orWhere('city','like',"%{$q}%")->get());
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Requests\DestroyTrack;
 use App\Http\Requests\StoreTrack;
 use App\Track;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class TrackController extends Controller
@@ -90,7 +91,41 @@ class TrackController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Track::find($id));
+        return $this->jsonResponse(Track::findOrFail($id));
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/tracks/search",
+     *     summary="Retrieve specific tracks matching the search query",
+     *     operationId="search-track",
+     *     tags={"Track"},
+     *     @OA\Parameter(
+     *         name="q",
+     *         in="query",
+     *         description="The query parameter in path",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All matching tracks",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/TrackResponse")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Error: Bad request. When required parameters were not supplied.",
+     *     ),
+     * )
+     */
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+
+        return $this->jsonResponse(Track::where('name','like',"%{$q}%")->orWhere('composer','like',"%{$q}%")->get());
     }
 
     /**

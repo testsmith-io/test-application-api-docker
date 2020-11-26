@@ -6,6 +6,7 @@ use App\Artist;
 use App\Http\Requests\DestroyArtist;
 use App\Http\Requests\StoreArtist;
 use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ArtistController extends Controller
@@ -89,7 +90,41 @@ class ArtistController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Artist::with('albums')->find($id));
+        return $this->jsonResponse(Artist::with('albums')->findOrFail($id));
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/artists/search",
+     *     summary="Retrieve specific artists matching the search query",
+     *     operationId="search-artist",
+     *     tags={"Artist"},
+     *     @OA\Parameter(
+     *         name="q",
+     *         in="query",
+     *         description="The query parameter in path",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All matching artists",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/ArtistResponse")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Error: Bad request. When required parameters were not supplied.",
+     *     ),
+     * )
+     */
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+
+        return $this->jsonResponse(Artist::with('albums')->where('name','like',"%{$q}%")->get());
     }
 
     /**

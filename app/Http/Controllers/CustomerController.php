@@ -259,7 +259,45 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Customer::with('supportRep')->find($id));
+        return $this->jsonResponse(Customer::with('supportRep')->findOrFail($id));
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/customers/search",
+     *     summary="Retrieve specific customers matching the search query",
+     *     operationId="search-customer",
+     *     tags={"Customer"},
+     *     @OA\Parameter(
+     *         name="q",
+     *         in="query",
+     *         description="The query parameter in path",
+     *         required=false,
+     *         @OA\Schema(type="string")
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="All matching customers",
+     *         @OA\JsonContent(
+     *             type="array",
+     *             @OA\Items(ref="#/components/schemas/CustomerResponse")
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response="400",
+     *         description="Error: Bad request. When required parameters were not supplied.",
+     *     ),
+     *     security={{ "apiAuth": {} }}
+     * )
+     */
+    public function search(Request $request)
+    {
+        $q = $request->get('q');
+
+        return $this->jsonResponse(Customer::with('supportRep')->where('firstname','like',"%{$q}%")
+            ->orWhere('lastname','like',"%{$q}%")
+            ->orWhere('company','like',"%{$q}%")
+            ->orWhere('city','like',"%{$q}%")->get());
     }
 
     /**
