@@ -49,7 +49,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Customer::with('supportRep')->paginate());
+        return $this->preferredFormat(Customer::with('supportRep')->paginate());
     }
 
     /**
@@ -78,7 +78,7 @@ class CustomerController extends Controller
 
         // Hash the password
         $input['password'] = app('hash')->make($input['password']);
-        return $this->jsonResponse(['customer' => Customer::create($input)], Response::HTTP_OK);
+        return $this->preferredFormat(['customer' => Customer::create($input)], Response::HTTP_OK);
     }
 
     /**
@@ -259,7 +259,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Customer::with('supportRep')->findOrFail($id));
+        return $this->preferredFormat(Customer::with('supportRep')->findOrFail($id));
     }
 
     /**
@@ -294,7 +294,7 @@ class CustomerController extends Controller
     {
         $q = $request->get('q');
 
-        return $this->jsonResponse(Customer::with('supportRep')->where('firstname','like',"%{$q}%")
+        return $this->preferredFormat(Customer::with('supportRep')->where('firstname','like',"%{$q}%")
             ->orWhere('lastname','like',"%{$q}%")
             ->orWhere('company','like',"%{$q}%")
             ->orWhere('city','like',"%{$q}%")->get());
@@ -337,7 +337,7 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomer $request, $id)
     {
-        return $this->jsonResponse(['success' => (bool)Customer::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        return $this->preferredFormat(['success' => (bool)Customer::where('id', $id)->update($request->all())], Response::HTTP_OK);
     }
 
     /**
@@ -367,10 +367,10 @@ class CustomerController extends Controller
     {
         try {
             Customer::find($id)->delete();
-            return $this->jsonResponse(null, Response::HTTP_NO_CONTENT);
+            return $this->preferredFormat(null, Response::HTTP_NO_CONTENT);
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
-                return $this->jsonResponse([
+                return $this->preferredFormat([
                     'success' => false,
                     'message' => 'Seems like this customer is used elsewhere.',
                 ], Response::HTTP_BAD_REQUEST);

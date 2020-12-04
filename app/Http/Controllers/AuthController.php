@@ -23,7 +23,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(app('auth')->user());
+        return $this->preferredFormat(app('auth')->user());
     }
 
     /**
@@ -35,7 +35,7 @@ class AuthController extends Controller
     {
         app('auth')->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return $this->preferredFormat(['message' => 'Successfully logged out']);
     }
 
     /**
@@ -57,7 +57,7 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        return response()->json([
+        return $this->preferredFormat([
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => app('auth')->factory()->getTTL() * 60

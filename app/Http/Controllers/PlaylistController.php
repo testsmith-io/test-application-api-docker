@@ -37,7 +37,7 @@ class PlaylistController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Playlist::paginate());
+        return $this->preferredFormat(Playlist::paginate());
     }
 
     /**
@@ -62,7 +62,7 @@ class PlaylistController extends Controller
      */
     public function store(StorePlaylist $request)
     {
-        return $this->jsonResponse(['playlist' => Playlist::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(['playlist' => Playlist::create($request->all())], Response::HTTP_CREATED);
     }
 
     /**
@@ -91,7 +91,7 @@ class PlaylistController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Playlist::findOrFail($id));
+        return $this->preferredFormat(Playlist::findOrFail($id));
     }
 
     /**
@@ -125,7 +125,7 @@ class PlaylistController extends Controller
     {
         $q = $request->get('q');
 
-        return $this->jsonResponse(Playlist::where('name','like',"%{$q}%")->get());
+        return $this->preferredFormat(Playlist::where('name','like',"%{$q}%")->get());
     }
 
     /**
@@ -165,7 +165,7 @@ class PlaylistController extends Controller
      */
     public function update(StorePlaylist $request, $id)
     {
-        return $this->jsonResponse(['success' => (bool)Playlist::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        return $this->preferredFormat(['success' => (bool)Playlist::where('id', $id)->update($request->all())], Response::HTTP_OK);
     }
 
     /**
@@ -195,10 +195,10 @@ class PlaylistController extends Controller
     {
         try {
             Playlist::find($id)->delete();
-            return $this->jsonResponse(null, Response::HTTP_NO_CONTENT);
+            return $this->preferredFormat(null, Response::HTTP_NO_CONTENT);
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
-                return $this->jsonResponse([
+                return $this->preferredFormat([
                     'success' => false,
                     'message' => 'Seems like this playlist is used elsewhere.',
                 ], Response::HTTP_BAD_REQUEST);

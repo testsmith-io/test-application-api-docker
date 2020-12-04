@@ -67,8 +67,9 @@ $app->middleware([
 ]);
 
 $app->routeMiddleware([
+    'throttle' => App\Http\Middleware\ThrottleRequests::class,
     'auth' => App\Http\Middleware\Authenticate::class,
-    'assign.guard' => App\Http\Middleware\AssignGuard::class,
+    'assign.guard' => App\Http\Middleware\AssignGuard::class
 ]);
 
 /*
@@ -87,6 +88,8 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(Urameshibr\Providers\FormRequestServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(\SwaggerLume\ServiceProvider::class);
+$app->register(Mtownsend\ResponseXml\Providers\ResponseXmlServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

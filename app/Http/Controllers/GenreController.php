@@ -36,7 +36,7 @@ class GenreController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Genre::paginate());
+        return response()->preferredFormat(Genre::paginate());
     }
 
     /**
@@ -61,7 +61,7 @@ class GenreController extends Controller
      */
     public function store(StoreGenre $request)
     {
-        return $this->jsonResponse(['genre' => Genre::create($request->all())], Response::HTTP_CREATED);
+        return response()->preferredFormat(['genre' => Genre::create($request->all())], Response::HTTP_CREATED);
     }
 
     /**
@@ -90,7 +90,7 @@ class GenreController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Genre::findOrFail($id));
+        return response()->preferredFormat(Genre::findOrFail($id));
     }
 
     /**
@@ -124,7 +124,7 @@ class GenreController extends Controller
     {
         $q = $request->get('q');
 
-        return $this->jsonResponse(Genre::where('name','like',"%{$q}%")->get());
+        return response()->preferredFormat(Genre::where('name','like',"%{$q}%")->get());
     }
 
     /**
@@ -164,7 +164,7 @@ class GenreController extends Controller
      */
     public function update(StoreGenre $request, $id)
     {
-        return $this->jsonResponse(['success' => (bool)Genre::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        return response()->preferredFormat(['success' => (bool)Genre::where('id', $id)->update($request->all())], Response::HTTP_OK);
     }
 
     /**
@@ -194,10 +194,10 @@ class GenreController extends Controller
     {
         try {
             Genre::find($id)->delete();
-            return $this->jsonResponse(null, Response::HTTP_NO_CONTENT);
+            return response()->preferredFormat(null, Response::HTTP_NO_CONTENT);
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
-                return $this->jsonResponse([
+                return response()->preferredFormat([
                     'success' => false,
                     'message' => 'Seems like this genre is used elsewhere.',
                 ], Response::HTTP_BAD_REQUEST);

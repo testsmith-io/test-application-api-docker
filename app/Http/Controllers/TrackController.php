@@ -37,7 +37,7 @@ class TrackController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Track::paginate());
+        return $this->preferredFormat(Track::paginate());
     }
 
     /**
@@ -62,7 +62,7 @@ class TrackController extends Controller
      */
     public function store(StoreTrack $request)
     {
-        return $this->jsonResponse(['track' => Track::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(['track' => Track::create($request->all())], Response::HTTP_CREATED);
     }
 
     /**
@@ -91,7 +91,7 @@ class TrackController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Track::findOrFail($id));
+        return $this->preferredFormat(Track::findOrFail($id));
     }
 
     /**
@@ -125,7 +125,7 @@ class TrackController extends Controller
     {
         $q = $request->get('q');
 
-        return $this->jsonResponse(Track::where('name','like',"%{$q}%")->orWhere('composer','like',"%{$q}%")->get());
+        return $this->preferredFormat(Track::where('name','like',"%{$q}%")->orWhere('composer','like',"%{$q}%")->get());
     }
 
     /**
@@ -165,7 +165,7 @@ class TrackController extends Controller
      */
     public function update(StoreTrack $request, $id)
     {
-        return $this->jsonResponse(['success' => (bool) Track::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        return $this->preferredFormat(['success' => (bool) Track::where('id', $id)->update($request->all())], Response::HTTP_OK);
     }
 
     /**
@@ -195,10 +195,10 @@ class TrackController extends Controller
     {
         try {
             Track::find($id)->delete();
-            return $this->jsonResponse(null, Response::HTTP_NO_CONTENT);
+            return $this->preferredFormat(null, Response::HTTP_NO_CONTENT);
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
-                return $this->jsonResponse([
+                return $this->preferredFormat([
                     'success' => false,
                     'message' => 'Seems like this playlist is used elsewhere.',
                 ], Response::HTTP_BAD_REQUEST);

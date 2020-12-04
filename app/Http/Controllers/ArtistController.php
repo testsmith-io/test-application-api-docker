@@ -36,7 +36,7 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Artist::with('albums')->paginate());
+        return $this->preferredFormat(Artist::with('albums')->paginate());
     }
 
     /**
@@ -61,7 +61,7 @@ class ArtistController extends Controller
      */
     public function store(StoreArtist $request)
     {
-        return $this->jsonResponse(['artist' => Artist::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(['artist' => Artist::create($request->all())], Response::HTTP_CREATED);
     }
 
     /**
@@ -90,7 +90,7 @@ class ArtistController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Artist::with('albums')->findOrFail($id));
+        return $this->preferredFormat(Artist::with('albums')->findOrFail($id));
     }
 
     /**
@@ -124,7 +124,7 @@ class ArtistController extends Controller
     {
         $q = $request->get('q');
 
-        return $this->jsonResponse(Artist::with('albums')->where('name','like',"%{$q}%")->get());
+        return $this->preferredFormat(Artist::with('albums')->where('name','like',"%{$q}%")->get());
     }
 
     /**
@@ -164,7 +164,7 @@ class ArtistController extends Controller
      */
     public function update(StoreArtist $request, $id)
     {
-        return $this->jsonResponse(['success' => (bool) Artist::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        return $this->preferredFormat(['success' => (bool) Artist::where('id', $id)->update($request->all())], Response::HTTP_OK);
     }
 
     /**
@@ -194,10 +194,10 @@ class ArtistController extends Controller
     {
         try {
             Artist::find($id)->delete();
-            return $this->jsonResponse(null, Response::HTTP_NO_CONTENT);
+            return $this->preferredFormat(null, Response::HTTP_NO_CONTENT);
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
-                return $this->jsonResponse([
+                return $this->preferredFormat([
                     'success' => false,
                     'message' => 'Seems like this artist is used elsewhere.',
                 ], Response::HTTP_BAD_REQUEST);

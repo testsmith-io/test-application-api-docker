@@ -15,6 +15,7 @@ class ReportController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('throttle:60,1');
         $this->middleware('auth:employee');
         $this->middleware('assign.guard:employee');
     }
@@ -40,7 +41,7 @@ class ReportController extends Controller
             ->groupBy('e.id', 'sales_agent')
             ->get();
 
-        return $this->jsonResponse($results);
+        return $this->preferredFormat($results);
     }
 
     /**
@@ -63,7 +64,7 @@ class ReportController extends Controller
             ->groupBy('billing_country')
             ->get();
 
-        return $this->jsonResponse($results);
+        return $this->preferredFormat($results);
     }
 
     /**
@@ -88,7 +89,7 @@ class ReportController extends Controller
             ->groupBy('e.id', 'sales_agent')
             ->get();
 
-        return $this->jsonResponse($results);
+        return $this->preferredFormat($results);
     }
 
     /**
@@ -114,7 +115,7 @@ class ReportController extends Controller
             ->limit(10)
             ->get();
 
-        return $this->jsonResponse($results);
+        return $this->preferredFormat($results);
     }
 
     /**
@@ -144,7 +145,7 @@ GROUP BY ar.name) as f'))
             ->limit(5)
             ->get();
 
-        return $this->jsonResponse($results);
+        return $this->preferredFormat($results);
     }
 
     /**
@@ -181,7 +182,7 @@ GROUP BY ar.name) as f'))
             ->limit(10)
             ->get();
 
-        return $this->jsonResponse($results);
+        return $this->preferredFormat($results);
     }
 
     /**
@@ -213,7 +214,7 @@ GROUP BY ar.name) as f'))
             ->whereBetween('invoice_date', [$year . '-01-01', $year + 1 . '-01-01'])
             ->get();
 
-        return $this->jsonResponse($results);
+        return $this->preferredFormat($results);
     }
 
     /**
@@ -246,7 +247,7 @@ GROUP BY ar.name) as f'))
             ->where('c.country', '=', $country)
             ->get();
 
-        return $this->jsonResponse($results);
+        return $this->preferredFormat($results);
     }
 
 }

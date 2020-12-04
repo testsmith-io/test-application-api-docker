@@ -36,7 +36,7 @@ class MediatypeController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Mediatype::paginate());
+        return $this->preferredFormat(Mediatype::paginate());
     }
 
     /**
@@ -61,7 +61,7 @@ class MediatypeController extends Controller
      */
     public function store(StoreMediatype $request)
     {
-        return $this->jsonResponse(['mediatype' => Mediatype::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(['mediatype' => Mediatype::create($request->all())], Response::HTTP_CREATED);
     }
 
     /**
@@ -90,7 +90,7 @@ class MediatypeController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Mediatype::findOrFail($id));
+        return $this->preferredFormat(Mediatype::findOrFail($id));
     }
 
     /**
@@ -123,7 +123,7 @@ class MediatypeController extends Controller
     public function search(Request $request)
     {
         $q = $request->get('q');
-        return $this->jsonResponse(Mediatype::where('name','like',"%{$q}%")->get());
+        return $this->preferredFormat(Mediatype::where('name','like',"%{$q}%")->get());
     }
 
     /**
@@ -163,7 +163,7 @@ class MediatypeController extends Controller
      */
     public function update(StoreMediatype $request, $id)
     {
-        return $this->jsonResponse(['success' => (bool)Mediatype::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        return $this->preferredFormat(['success' => (bool)Mediatype::where('id', $id)->update($request->all())], Response::HTTP_OK);
     }
 
     /**
@@ -193,10 +193,10 @@ class MediatypeController extends Controller
     {
         try {
             Mediatype::find($id)->delete();
-            return $this->jsonResponse(null, Response::HTTP_NO_CONTENT);
+            return $this->preferredFormat(null, Response::HTTP_NO_CONTENT);
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
-                return $this->jsonResponse([
+                return $this->preferredFormat([
                     'success' => false,
                     'message' => 'Seems like this genre is used elsewhere.',
                 ], Response::HTTP_BAD_REQUEST);

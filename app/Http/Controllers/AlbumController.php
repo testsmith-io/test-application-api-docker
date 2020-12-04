@@ -37,7 +37,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Album::with('artist')->paginate());
+        return $this->preferredFormat(Album::with('artist')->paginate());
     }
 
     /**
@@ -62,7 +62,7 @@ class AlbumController extends Controller
      */
     public function store(StoreAlbum $request)
     {
-        return $this->jsonResponse(['album' => Album::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(['album' => Album::create($request->all())], Response::HTTP_CREATED);
     }
 
     /**
@@ -91,7 +91,7 @@ class AlbumController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Album::with('artist')->findOrFail($id));
+        return $this->preferredFormat(Album::with('artist')->findOrFail($id));
     }
 
     /**
@@ -125,7 +125,7 @@ class AlbumController extends Controller
     {
         $q = $request->get('q');
 
-        return $this->jsonResponse(Album::with('artist')->where('title','like',"%{$q}%")->get());
+        return $this->preferredFormat(Album::with('artist')->where('title','like',"%{$q}%")->get());
     }
 
     /**
@@ -165,7 +165,7 @@ class AlbumController extends Controller
      */
     public function update(StoreAlbum $request, $id)
     {
-        return $this->jsonResponse(['success' => (bool)Album::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        return $this->preferredFormat(['success' => (bool)Album::where('id', $id)->update($request->all())], Response::HTTP_OK);
     }
 
     /**
@@ -195,10 +195,10 @@ class AlbumController extends Controller
     {
         try {
             Album::find($id)->delete();
-            return response()->json(null, Response::HTTP_NO_CONTENT);
+            return $this->preferredFormat(null, Response::HTTP_NO_CONTENT);
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
-                return $this->jsonResponse([
+                return $this->preferredFormat([
                     'success' => false,
                     'message' => 'Seems like this album is used elsewhere.',
                 ], Response::HTTP_BAD_REQUEST);

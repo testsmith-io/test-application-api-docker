@@ -47,7 +47,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Invoice::where('customer_id', app('auth')->user()->id)->paginate());
+        return $this->preferredFormat(Invoice::where('customer_id', app('auth')->user()->id)->paginate());
     }
 
     /**
@@ -73,7 +73,7 @@ class InvoiceController extends Controller
      */
     public function store(StoreInvoice $request)
     {
-        return $this->jsonResponse(['invoice' => Invoice::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(['invoice' => Invoice::create($request->all())], Response::HTTP_CREATED);
     }
 
     /**
@@ -103,7 +103,7 @@ class InvoiceController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Invoice::where('id', $id)->where('customer_id', app('auth')->user()->id)->first());
+        return $this->preferredFormat(Invoice::where('id', $id)->where('customer_id', app('auth')->user()->id)->first());
     }
 
     /**
@@ -144,7 +144,7 @@ class InvoiceController extends Controller
      */
     public function update(StoreInvoice $request, $id)
     {
-        return $this->jsonResponse(['success' => (bool)Invoice::where('id', $id)->where('customer_id', app('auth')->user()->id)->update($request->all())], Response::HTTP_OK);
+        return $this->preferredFormat(['success' => (bool)Invoice::where('id', $id)->where('customer_id', app('auth')->user()->id)->update($request->all())], Response::HTTP_OK);
     }
 
     /**
@@ -175,10 +175,10 @@ class InvoiceController extends Controller
     {
         try {
             Invoice::find($id)->where('customer_id', app('auth')->user()->id)->delete();
-            return $this->jsonResponse(null, Response::HTTP_NO_CONTENT);
+            return $this->preferredFormat(null, Response::HTTP_NO_CONTENT);
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
-                return $this->jsonResponse([
+                return $this->preferredFormat([
                     'success' => false,
                     'message' => 'Seems like this invoice is used elsewhere.',
                 ], Response::HTTP_BAD_REQUEST);

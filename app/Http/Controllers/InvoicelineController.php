@@ -36,7 +36,7 @@ class InvoicelineController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Invoiceline::paginate());
+        return $this->preferredFormat(Invoiceline::paginate());
     }
 
     /**
@@ -61,7 +61,7 @@ class InvoicelineController extends Controller
      */
     public function store(StoreInvoiceline $request)
     {
-        return $this->jsonResponse(['invoiceline' => Invoiceline::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(['invoiceline' => Invoiceline::create($request->all())], Response::HTTP_CREATED);
     }
 
     /**
@@ -90,7 +90,7 @@ class InvoicelineController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Invoiceline::findOrFail($id));
+        return $this->preferredFormat(Invoiceline::findOrFail($id));
     }
 
     /**
@@ -130,7 +130,7 @@ class InvoicelineController extends Controller
      */
     public function update(StoreInvoiceline $request, $id)
     {
-        return $this->jsonResponse(['success' => (bool)Invoiceline::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        return $this->preferredFormat(['success' => (bool)Invoiceline::where('id', $id)->update($request->all())], Response::HTTP_OK);
     }
 
     /**
@@ -160,10 +160,10 @@ class InvoicelineController extends Controller
     {
         try {
             Invoiceline::find($id)->delete();
-            return $this->jsonResponse(null, Response::HTTP_NO_CONTENT);
+            return $this->preferredFormat(null, Response::HTTP_NO_CONTENT);
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
-                return $this->jsonResponse([
+                return $this->preferredFormat([
                     'success' => false,
                     'message' => 'Seems like this invoice is used elsewhere.',
                 ], Response::HTTP_BAD_REQUEST);

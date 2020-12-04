@@ -42,7 +42,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return $this->jsonResponse(Employee::with('reportsTo', 'customers')->get());
+        return $this->preferredFormat(Employee::with('reportsTo', 'customers')->get());
     }
 
     /**
@@ -71,7 +71,7 @@ class EmployeeController extends Controller
 
         // Hash the password
         $input['password'] = app('hash')->make($input['password']);
-        return $this->jsonResponse(['employee' => Employee::create($input)], Response::HTTP_CREATED);
+        return $this->preferredFormat(['employee' => Employee::create($input)], Response::HTTP_CREATED);
     }
 
     /**
@@ -129,7 +129,7 @@ class EmployeeController extends Controller
     {
         $credentials = $request->all(['email', 'password']);
         if (!$token = app('auth')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return $this->preferredFormat(['error' => 'Unauthorized'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -155,7 +155,7 @@ class EmployeeController extends Controller
      */
     public function me()
     {
-        return response()->json(app('auth')->user());
+        return $this->preferredFormat(app('auth')->user());
     }
 
     /**
@@ -185,7 +185,7 @@ class EmployeeController extends Controller
     {
         app('auth')->logout();
 
-        return response()->json(['message' => 'Successfully logged out']);
+        return $this->preferredFormat(['message' => 'Successfully logged out']);
     }
 
     /**
@@ -251,7 +251,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        return $this->jsonResponse(Employee::with('reportsTo', 'customers')->find($id));
+        return $this->preferredFormat(Employee::with('reportsTo', 'customers')->find($id));
     }
 
     /**
@@ -286,7 +286,7 @@ class EmployeeController extends Controller
     {
         $q = $request->get('q');
 
-        return $this->jsonResponse(Employee::with('reportsTo', 'customers')->where('firstname','like',"%{$q}%")
+        return $this->preferredFormat(Employee::with('reportsTo', 'customers')->where('firstname','like',"%{$q}%")
             ->orWhere('lastname','like',"%{$q}%")
             ->orWhere('city','like',"%{$q}%")->get());
     }
@@ -328,7 +328,7 @@ class EmployeeController extends Controller
      */
     public function update(StoreEmployee $request, $id)
     {
-        return $this->jsonResponse(['success' => (bool)Employee::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        return $this->preferredFormat(['success' => (bool)Employee::where('id', $id)->update($request->all())], Response::HTTP_OK);
     }
 
     /**
@@ -358,10 +358,10 @@ class EmployeeController extends Controller
     {
         try {
             Employee::find($id)->delete();
-            return $this->jsonResponse(null, Response::HTTP_NO_CONTENT);
+            return $this->preferredFormat(null, Response::HTTP_NO_CONTENT);
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
-                return $this->jsonResponse([
+                return $this->preferredFormat([
                     'success' => false,
                     'message' => 'Seems like this employee is used elsewhere.',
                 ], Response::HTTP_BAD_REQUEST);
