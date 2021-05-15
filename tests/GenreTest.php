@@ -22,9 +22,7 @@ class GenreTest extends TestCase
         $this->json('POST', 'api/genres', $payload)
             ->seeStatusCode(201)
             ->seeJsonStructure([
-                'genre' => [
-                    'name'
-                ],
+                'name'
             ]);
     }
 

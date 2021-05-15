@@ -20,9 +20,7 @@ class ArtistTest extends TestCase
         $this->json('POST', 'api/artists', $payload)
             ->seeStatusCode(201)
             ->seeJsonStructure([
-                'artist' => [
-                    'name'
-                ],
+                'name'
             ]);
     }
 

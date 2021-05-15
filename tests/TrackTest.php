@@ -36,9 +36,7 @@ class TrackTest extends TestCase
         $this->json('POST', 'api/tracks', $payload)
             ->seeStatusCode(201)
             ->seeJsonStructure([
-                'track' => [
-                    'name'
-                ],
+                'name'
             ]);
     }
 

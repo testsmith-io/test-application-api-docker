@@ -35,9 +35,7 @@ class CustomerTest extends TestCase
         $this->json('POST', 'api/customers', $payload)
             ->seeStatusCode(200)
             ->seeJsonStructure([
-                'customer' => [
                     'firstname'
-                ],
             ]);
     }
 
@@ -84,9 +82,7 @@ class CustomerTest extends TestCase
 
         $payload = ['firstname' => 'new'];
         $this->refreshApplication();
-        $this->put('api/customers/' . $customer->id, $payload, $this->headers(factory(Customer::class)->create([
-            'firstname' => 'Test'
-        ])))
+        $this->put('api/customers/' . $customer->id, $payload, $this->headers($customer))
             ->seeStatusCode(200)
             ->seeJson([
                 'success' => true

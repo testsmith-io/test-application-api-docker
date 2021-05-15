@@ -19,9 +19,7 @@ class PlaylistTest extends TestCase
 
         $this->json('POST', 'api/playlists', $payload)
             ->seeJsonStructure([
-                'playlist' => [
-                    'name'
-                ],
+                'name'
             ])
             ->seeStatusCode(201);
     }

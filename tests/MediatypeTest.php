@@ -22,9 +22,7 @@ class MediatypeTest extends TestCase
         $this->json('POST', 'api/mediatypes', $payload)
             ->seeStatusCode(201)
             ->seeJsonStructure([
-                'mediatype' => [
-                    'name'
-                ],
+                'name'
             ]);
     }
 

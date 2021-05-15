@@ -34,9 +34,7 @@ class InvoiceTest extends TestCase
         $this->actingAs($customer, 'customer')->json('POST', 'api/invoices', $payload, [])
             ->seeStatusCode(201)
             ->seeJsonStructure([
-                'invoice' => [
                     'billing_address'
-                ],
             ]);
     }
 

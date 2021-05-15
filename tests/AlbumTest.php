@@ -20,9 +20,7 @@ class AlbumTest extends TestCase
         $this->json('POST', 'api/albums', $payload)
             ->seeStatusCode(201)
             ->seeJsonStructure([
-                'album' => [
-                    'title'
-                ],
+                'title'
             ]);
     }
 

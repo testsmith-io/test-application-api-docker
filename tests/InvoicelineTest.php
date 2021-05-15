@@ -30,9 +30,7 @@ class InvoicelineTest extends TestCase
         $this->json('POST', 'api/invoicelines', $payload)
             ->seeStatusCode(201)
             ->seeJsonStructure([
-                'invoiceline' => [
-                    'quantity'
-                ],
+                'quantity'
             ]);
     }
 

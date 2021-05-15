@@ -1,4 +1,5 @@
 <?php
+
 use App\Employee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -39,9 +40,7 @@ class EmployeeTest extends TestCase
         $this->json('POST', 'api/employees', $payload)
             ->seeStatusCode(201)
             ->seeJsonStructure([
-                'employee' => [
-                    'firstname'
-                ],
+                'firstname'
             ]);
     }
 
