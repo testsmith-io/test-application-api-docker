@@ -1,4 +1,4 @@
-![Badge](https://github.com/testsmith-io/test-application-api-docker/actions/workflows/maven.yml/badge.svg)
+![Badge](https://github.com/testsmith-io/test-application-api-docker/actions/workflows/laravel.yml/badge.svg)
 
 # Digital media store
 
