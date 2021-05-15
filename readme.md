@@ -1,3 +1,5 @@
+![Badge](https://github.com/testsmith-io/test-application-api-docker/actions/workflows/maven.yml/badge.svg)
+
 # Digital media store
 
 The Chinook data model represents a digital media store, including tables for artists, albums, media tracks, invoices and customers.
