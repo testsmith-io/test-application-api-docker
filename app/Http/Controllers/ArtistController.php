@@ -61,7 +61,7 @@ class ArtistController extends Controller
      */
     public function store(StoreArtist $request)
     {
-        return $this->preferredFormat(['artist' => Artist::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(Artist::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**

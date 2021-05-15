@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  *         @OA\Property(property="id", type="integer"),
  *         @OA\Property(property="name", type="string"),
  *         @OA\Property(property="created_at", type="string"),
- *         @OA\Property(property="artist", type="array", @OA\Items(ref="#/components/schemas/AlbumResponse"))
+ *         @OA\Property(property="albums", type="array", @OA\Items(ref="#/components/schemas/AlbumResponse"))
  *     }
  * )
  */

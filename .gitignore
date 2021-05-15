@@ -5,3 +5,4 @@ Homestead.json
 Homestead.yaml
 .phpunit.result.cache
 chinook
+*.log

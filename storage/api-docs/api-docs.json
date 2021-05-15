@@ -740,7 +740,12 @@
                     "default": {
                         "description": "unexpected error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
             },
             "delete": {
                 "tags": [
@@ -766,7 +771,12 @@
                     "400": {
                         "description": "Error: Bad request. When required parameters were not supplied."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiAuth": []
+                    }
+                ]
             }
         },
         "/customers/search": {
@@ -854,7 +864,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An Employee",
+                        "description": "An employee",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -934,7 +944,7 @@
                 "operationId": "get-current-employee-info",
                 "responses": {
                     "200": {
-                        "description": "A employee",
+                        "description": "An employee",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1045,7 +1055,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An Employee",
+                        "description": "An employee",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1089,7 +1099,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An Employee",
+                        "description": "An employee",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1196,7 +1206,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "All genre",
+                        "description": "All genres",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1229,7 +1239,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An Genre",
+                        "description": "A genre",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1261,7 +1271,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An Genre",
+                        "description": "A genre",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1305,7 +1315,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An Genre",
+                        "description": "A genre",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1445,7 +1455,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An Invoice",
+                        "description": "An invoice",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1482,7 +1492,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An Invoice",
+                        "description": "An invoice",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1531,7 +1541,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An Invoice",
+                        "description": "An invoice",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1605,7 +1615,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "All invoiceline",
+                        "description": "All invoicelines",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1638,7 +1648,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An Album",
+                        "description": "An invoiceline",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1811,7 +1821,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An Album",
+                        "description": "A mediatype",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1843,7 +1853,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An Mediatype",
+                        "description": "A mediatype",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1887,7 +1897,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An Mediatype",
+                        "description": "A mediatype",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2022,7 +2032,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An Playlist",
+                        "description": "A playlist",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2054,7 +2064,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "An Playlist",
+                        "description": "A playlist",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2098,7 +2108,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "An Playlist",
+                        "description": "A playlist",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -2643,7 +2653,7 @@
                     "created_at": {
                         "type": "string"
                     },
-                    "artist": {
+                    "albums": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/AlbumResponse"
@@ -3001,8 +3011,8 @@
                     "created_at": {
                         "type": "string"
                     },
-                    "artist": {
-                        "$ref": "#/components/schemas/ArtistResponse"
+                    "customer": {
+                        "$ref": "#/components/schemas/CustomerResponse"
                     }
                 },
                 "type": "object"

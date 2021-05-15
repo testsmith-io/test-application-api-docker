@@ -62,7 +62,7 @@ class AlbumController extends Controller
      */
     public function store(StoreAlbum $request)
     {
-        return $this->preferredFormat(['album' => Album::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(Album::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**

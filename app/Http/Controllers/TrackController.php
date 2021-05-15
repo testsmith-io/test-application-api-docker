@@ -62,7 +62,7 @@ class TrackController extends Controller
      */
     public function store(StoreTrack $request)
     {
-        return $this->preferredFormat(['track' => Track::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(Track::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**

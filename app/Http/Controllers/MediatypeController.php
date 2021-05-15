@@ -52,7 +52,7 @@ class MediatypeController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Album",
+     *         description="A mediatype",
      *         @OA\JsonContent(ref="#/components/schemas/MediatypeResponse"),
      *     )
      * )
@@ -61,7 +61,7 @@ class MediatypeController extends Controller
      */
     public function store(StoreMediatype $request)
     {
-        return $this->preferredFormat(['mediatype' => Mediatype::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(Mediatype::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -79,7 +79,7 @@ class MediatypeController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Mediatype",
+     *         description="A mediatype",
      *         @OA\JsonContent(ref="#/components/schemas/MediatypeResponse"),
      *     ),
      *     @OA\Response(
@@ -146,7 +146,7 @@ class MediatypeController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Mediatype",
+     *         description="A mediatype",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/MediatypeResponse")

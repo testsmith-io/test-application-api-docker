@@ -26,7 +26,7 @@ class GenreController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="All genre",
+     *         description="All genres",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/GenreResponse")
@@ -52,7 +52,7 @@ class GenreController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Genre",
+     *         description="A genre",
      *         @OA\JsonContent(ref="#/components/schemas/GenreResponse"),
      *     )
      * )
@@ -61,7 +61,7 @@ class GenreController extends Controller
      */
     public function store(StoreGenre $request)
     {
-        return response()->preferredFormat(['genre' => Genre::create($request->all())], Response::HTTP_CREATED);
+        return response()->preferredFormat(Genre::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -79,7 +79,7 @@ class GenreController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Genre",
+     *         description="A genre",
      *         @OA\JsonContent(ref="#/components/schemas/GenreResponse"),
      *     ),
      *     @OA\Response(
@@ -147,7 +147,7 @@ class GenreController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Genre",
+     *         description="A genre",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/GenreResponse")

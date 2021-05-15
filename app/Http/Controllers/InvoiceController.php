@@ -63,7 +63,7 @@ class InvoiceController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Invoice",
+     *         description="An invoice",
      *         @OA\JsonContent(ref="#/components/schemas/InvoiceResponse"),
      *     ),
      *     security={{ "apiAuth": {} }}
@@ -73,7 +73,7 @@ class InvoiceController extends Controller
      */
     public function store(StoreInvoice $request)
     {
-        return $this->preferredFormat(['invoice' => Invoice::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(Invoice::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -91,7 +91,7 @@ class InvoiceController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Invoice",
+     *         description="An invoice",
      *         @OA\JsonContent(ref="#/components/schemas/InvoiceResponse"),
      *     ),
      *     @OA\Response(
@@ -126,7 +126,7 @@ class InvoiceController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Invoice",
+     *         description="An invoice",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/InvoiceResponse")

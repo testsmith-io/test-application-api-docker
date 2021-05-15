@@ -42,7 +42,7 @@ use Illuminate\Database\Eloquent\Model;
  *         @OA\Property(property="billing_postalcode", type="string"),
  *         @OA\Property(property="total", type="string"),
  *         @OA\Property(property="created_at", type="string"),
- *         @OA\Property(property="artist", ref="#/components/schemas/ArtistResponse")
+ *         @OA\Property(property="customer", ref="#/components/schemas/CustomerResponse")
  *     }
  * )
  */

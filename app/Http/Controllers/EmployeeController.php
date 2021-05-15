@@ -58,7 +58,7 @@ class EmployeeController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Employee",
+     *         description="An employee",
      *         @OA\JsonContent(ref="#/components/schemas/EmployeeResponse"),
      *     )
      * )
@@ -71,7 +71,7 @@ class EmployeeController extends Controller
 
         // Hash the password
         $input['password'] = app('hash')->make($input['password']);
-        return $this->preferredFormat(['employee' => Employee::create($input)], Response::HTTP_CREATED);
+        return $this->preferredFormat(Employee::create($input), Response::HTTP_CREATED);
     }
 
     /**
@@ -143,7 +143,7 @@ class EmployeeController extends Controller
      *     tags={"Employee"},
      *     @OA\Response(
      *         response=200,
-     *         description="A employee",
+     *         description="An employee",
      *         @OA\JsonContent(ref="#/components/schemas/EmployeeResponse"),
      *     ),
      *     @OA\Response(
@@ -240,7 +240,7 @@ class EmployeeController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Employee",
+     *         description="An employee",
      *         @OA\JsonContent(ref="#/components/schemas/EmployeeResponse"),
      *     ),
      *     @OA\Response(
@@ -311,7 +311,7 @@ class EmployeeController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Employee",
+     *         description="An employee",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/EmployeeResponse")

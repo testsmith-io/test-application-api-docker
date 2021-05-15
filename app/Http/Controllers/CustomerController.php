@@ -78,7 +78,7 @@ class CustomerController extends Controller
 
         // Hash the password
         $input['password'] = app('hash')->make($input['password']);
-        return $this->preferredFormat(['customer' => Customer::create($input)], Response::HTTP_OK);
+        return $this->preferredFormat(Customer::create($input), Response::HTTP_OK);
     }
 
     /**
@@ -330,14 +330,19 @@ class CustomerController extends Controller
      *         response="default",
      *         description="unexpected error",
      *         @OA\Schema(ref="#/components/schemas/Error")
-     *     )
+     *     ),
+     *     security={{ "apiAuth": {} }}
      * )
      * @param Request $request
      * @return array
      */
     public function update(UpdateCustomer $request, $id)
     {
-        return $this->preferredFormat(['success' => (bool)Customer::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        if(app('auth')->id() == $id) {
+            return $this->preferredFormat(['success' => (bool)Customer::where('id', $id)->update($request->all())], Response::HTTP_OK);
+        } else {
+            return response()->json(['error' => 'You can only update your own data.'], 403);
+        }
     }
 
     /**
@@ -361,13 +366,18 @@ class CustomerController extends Controller
      *         response="400",
      *         description="Error: Bad request. When required parameters were not supplied.",
      *     ),
+     *     security={{ "apiAuth": {} }}
      * )
      */
     public function destroy(DestroyCustomer $request, $id)
     {
         try {
-            Customer::find($id)->delete();
-            return $this->preferredFormat(null, Response::HTTP_NO_CONTENT);
+            if(app('auth')->id() == $id) {
+                Customer::find($id)->delete();
+                return $this->preferredFormat(null, Response::HTTP_NO_CONTENT);
+            } else {
+                return response()->json(['error' => 'You can only delete your own account.'], 403);
+            }
         } catch (QueryException $e) {
             if ($e->getCode() === '23000') {
                 return $this->preferredFormat([

@@ -53,7 +53,7 @@ class PlaylistController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Playlist",
+     *         description="A playlist",
      *         @OA\JsonContent(ref="#/components/schemas/PlaylistResponse"),
      *     )
      * )
@@ -62,7 +62,7 @@ class PlaylistController extends Controller
      */
     public function store(StorePlaylist $request)
     {
-        return $this->preferredFormat(['playlist' => Playlist::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(Playlist::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
@@ -80,7 +80,7 @@ class PlaylistController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Playlist",
+     *         description="A playlist",
      *         @OA\JsonContent(ref="#/components/schemas/PlaylistResponse"),
      *     ),
      *     @OA\Response(
@@ -148,7 +148,7 @@ class PlaylistController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Playlist",
+     *         description="A playlist",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/PlaylistResponse")

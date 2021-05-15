@@ -26,7 +26,7 @@ class InvoicelineController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="All invoiceline",
+     *         description="All invoicelines",
      *         @OA\JsonContent(
      *             type="array",
      *             @OA\Items(ref="#/components/schemas/InvoicelineResponse")
@@ -52,7 +52,7 @@ class InvoicelineController extends Controller
      *     ),
      *     @OA\Response(
      *         response=200,
-     *         description="An Album",
+     *         description="An invoiceline",
      *         @OA\JsonContent(ref="#/components/schemas/InvoicelineResponse"),
      *     )
      * )
@@ -61,7 +61,7 @@ class InvoicelineController extends Controller
      */
     public function store(StoreInvoiceline $request)
     {
-        return $this->preferredFormat(['invoiceline' => Invoiceline::create($request->all())], Response::HTTP_CREATED);
+        return $this->preferredFormat(Invoiceline::create($request->all()), Response::HTTP_CREATED);
     }
 
     /**
