@@ -9,7 +9,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "7.3.27",
+        "php": ">=7.4",
         "darkaonline/swagger-lume": "6.*",
         "laravel/lumen-framework": "6.3.5",
         "mtownsend/response-xml": "1.3.1",
