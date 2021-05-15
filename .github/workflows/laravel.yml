@@ -1,4 +1,4 @@
-name: Laravel
+name: test application api docker
 
 on:
   push:
