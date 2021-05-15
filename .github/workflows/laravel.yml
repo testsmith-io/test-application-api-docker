@@ -3,6 +3,8 @@ name: Laravel
 on:
   push:
     branches: [ sprint-4 ]
+  pull_request:
+    branches: [ sprint-4 ]
 
 jobs:
   laravel-tests:
