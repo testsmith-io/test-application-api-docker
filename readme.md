@@ -1,6 +1,6 @@
-![Badge](https://github.com/testsmith-io/test-application-api-docker/actions/workflows/laravel.yml/badge.svg)
-
 # Digital media store
+
+![Badge](https://github.com/testsmith-io/test-application-api-docker/actions/workflows/laravel.yml/badge.svg)
 
 The Chinook data model represents a digital media store, including tables for artists, albums, media tracks, invoices and customers.
 
